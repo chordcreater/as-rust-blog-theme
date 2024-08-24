@@ -12,8 +12,8 @@ spec:
   homepage: "https://github.com/chordcreater/as-rust-blog-theme#readme"
   repo: "https://github.com/chordcreater/as-rust-blog-theme"
   issues: "https://github.com/chordcreater/as-rust-blog-theme/issues"
-  # settingName: "theme-starter-setting"
-  # configMapName: "theme-starter-configMap"
+  settingName: "theme-starter-setting"
+  configMapName: "theme-starter-configMap"
   version: "1.0.0"
   requires: ">=2.0.0"
   # license:

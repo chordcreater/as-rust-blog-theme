@@ -1,3 +1,4 @@
+# 主题设置定义文件，配置主题的设置项表单。详细文档请查阅 设置选项。https://docs.halo.run/developer-guide/theme/settings/
 apiVersion: v1alpha1
 kind: Setting
 metadata:
