@@ -1,0 +1,51 @@
+{
+    "name": "as-rust-blog-theme1.0",
+    "version": "1.0.0",
+    "description": "如尘博客主题。",
+    "main": "index.js",
+    "author": "asrust",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "release": "eslint src/**/*.js && gulp release",
+        "push": "eslint src/**/*.js && gulp push",
+        "zip": "gulp zip",
+        "build": "eslint src/**/*.js && gulp",
+        "lint": "eslint src/**/*.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chordcreater/as-rust-blog-theme.git"
+    },
+    "keywords": [
+        "halo",
+        "asrust",
+        "nineya",
+        "as-rust-blog"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/chordcreater/as-rust-blog-theme/issues"
+    },
+    "homepage": "https://github.com/chordcreater/as-rust-blog-theme#readme",
+    "devDependencies": {
+        "eslint": "^7.32.0",
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^8.0.0",
+        "gulp-babel": "^8.0.0",
+        "gulp-clean": "^0.4.0",
+        "gulp-csso": "^4.0.1",
+        "gulp-gzip": "^1.4.2",
+        "gulp-less": "^5.0.0",
+        "gulp-rename": "^2.0.0",
+        "gulp-uglify": "^3.0.2",
+        "gulp-zip": "^5.1.0",
+        "@babel/core": "^7.15.5",
+        "@babel/plugin-transform-runtime": "^7.15.0",
+        "@babel/preset-env": "^7.15.6",
+        "babel-eslint": "^10.1.0",
+        "babel-loader": "^8.2.3",
+        "webpack": "^5.68.0",
+        "webpack-stream": "^7.0.0"
+    },
+    "dependencies": {}
+}

@@ -1,26 +1,34 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <th:block th:each="archive : ${archives.items}">
-      <h1 th:text="${archive.year}"></h1>
-      <ul class="listing">
-        <th:block th:each="month : ${archive.months}">
-          <li th:each="post : ${month.posts}">
-            <a
-              th:href="@{${post.status.permalink}}"
-              th:title="${post.spec.title}"
-              th:text="${post.spec.title}"
-            ></a>
-          </li>
-        </th:block>
-      </ul>
+<th:block xmlns:th="https://www.thymeleaf.org" th:insert="~{layout/layout :: layout (title = ${'归档 - ' + site.title},
+       canonical = @{/archives}, content = ~{::content}, isPost = false)}">
+  <th:block th:fragment="content" th:with="isEmpty = ${#lists.isEmpty(archives)}">
+    <div th:if="${isEmpty}" class="card card-empty">
+      <i class="ri-inbox-2-fill"></i>
+      还没有发表过文章，回<a th:href="${site.url}">主页</a>看看吧
+    </div>
+    <th:block th:unless="${isEmpty}">
+      <div th:each="archive : ${archives.items}" class="card card-content">
+        <div class="timeline-title" th:text="${archive.year}"></div>
+        <div class="timeline">
+          <th:block th:each="months : ${archive.months}">
+            <article th:each="post : ${months.posts}" class="media"
+              th:with="thumbnail = ${#strings.isEmpty(post.spec.cover) ? #strings.isEmpty(theme.config.post.default_thumbnail) ? '' : theme.config.post.default_thumbnail + (#strings.contains(theme.config.post.default_thumbnail, '?') ? '&' : '?') + 'id=' + post.metadata.name : post.spec.cover}">
+              <a th:if="${!#strings.isEmpty(thumbnail)}" th:href="${post.status.permalink}" class="media-left">
+                <img class="not-gallery" th:src="${thumbnail}" th:alt="${post.spec.title}">
+              </a>
+              <div class="media-content">
+                <time th:text="${#dates.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+                <a th:href="${post.status.permalink}" class="title has-link-grey" th:text="${post.spec.title}"></a>
+                <p th:if="${!#lists.isEmpty(post.categories)}">
+                  <a class="has-link-grey" th:each="cy : ${post.categories}" th:href="${cy.status.permalink}"
+                    th:text="${cy.spec.displayName}"></a>&nbsp;
+                </p>
+              </div>
+            </article>
+          </th:block>
+        </div>
+      </div>
+      <th:block th:replace="~{main/pagination :: pagination (${archives}, '/archives')}" />
     </th:block>
-    <a th:if="${archives.hasPrevious()}" th:href="@{${archives.prevUrl}}">
-      上一页
-    </a>
-    <a th:if="${archives.hasNext()}" th:href="@{${archives.nextUrl}}">下一页</a>
   </th:block>
-</html>
+</th:block>

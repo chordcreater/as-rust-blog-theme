@@ -1,0 +1,42 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="articleList (posts)">
+    <th:block th:each="post : ${posts}"
+        th:with="thumbnail = ${#strings.isEmpty(post.spec.cover) ? #strings.isEmpty(theme.config.post.default_thumbnail) ? '' : theme.config.post.default_thumbnail + (#strings.contains(theme.config.post.default_thumbnail, '?') ? '&' : '?') + 'id=' + post.metadata.name : post.spec.cover},
+    thumbnail_mode = ${(theme.config.post.top_thumbnail_mode == 'grid' || (!post.spec.pinned && theme.config.post.thumbnail_mode == 'grid'))? 'grid' : !#strings.isEmpty(post.metadata.annotations.get('thumbnail_mode'))? post.metadata.annotations.get('thumbnail_mode') : post.spec.pinned ? theme.config.post.top_thumbnail_mode : theme.config.post.thumbnail_mode}">
+
+        <!-- (文章封面为空且文章列表封面图模式不为折叠)或者文章列表封面图模式为默认 -->
+        <div th:if="${(#strings.isEmpty(thumbnail) && thumbnail_mode != 'fold') ||  thumbnail_mode == 'default'}"
+            class="card widget">
+            <a th:if="${!#strings.isEmpty(thumbnail)}" class="thumbnail" th:href="${post.status.permalink}">
+                <div class="thumbnail-image" th:style="'background-image: url(' + ${thumbnail} + ')'">
+                </div>
+            </a>
+            <div class="card-content main">
+                <h2 class="title">
+                    <span class="top" th:if="${post.spec.pinned}">置顶</span><a th:href="${post.status.permalink}"
+                        th:text="${post.spec.title}"></a>
+                </h2>
+                <div class="meta">
+                    <ul class="breadcrumb">
+                        <li th:text="${#dates.format(post.spec.publishTime, 'yyyy-MM-dd HH:mm')}"></li>
+                        <li><i class="ri-eye-line"></i>[[${post.stats.visit}]]</li>
+                        <li th:if="${post.spec.allowComment}" class="is-hidden-mobile"><i
+                                class="ri-question-answer-line"></i>[[${post.stats.comment}]]
+                        </li>
+                        <li class="is-hidden-mobile"><i class="ri-thumb-up-line"></i>[[${post.stats.upvote}]]</li>
+                        <li th:with="heat= ${24+post.stats.visit*0.1+post.stats.upvote*2+post.stats.comment*3}, heatColor= '#'+${(heat < 37)? 'ffa87e' : (heat < 120)? 'fb734a' : 'e0081c'}"
+                            th:style="'color: ' + ${heatColor}">[[${#numbers.formatDecimal(heat,0,1)}]]℃
+                        </li>
+                    </ul>
+                    <div th:if="${!#lists.isEmpty(post.categories)}" class="level-item">
+                        <a th:each="cy : ${post.categories}" th:href="${cy.status.permalink}"
+                            th:text="${cy.spec.displayName}"></a>&nbsp;
+                    </div>
+                </div>
+                <!-- <hr> 是一个自闭合标签，意味着它不需要结束标签,标签代表“水平线”(Horizontal Rule)，它用于表示主题之间的分隔线 -->
+                <hr />
+                <div class="main-content" th:text="${post.status.excerpt}"></div>
+            </div>
+        </div>
+    </th:block>
+
+</th:block>

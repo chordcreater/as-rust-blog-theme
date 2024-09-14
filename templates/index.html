@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <ul>
-      <li th:each="post : ${posts.items}">
-        <a
-          th:href="@{${post.status.permalink}}"
-          th:text="${post.spec.title}"
-        ></a>
-      </li>
-    </ul>
-    <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">上一页</a>
-    <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">下一页</a>
-  </th:block>
-</html>
+<th:block xmlms:th="https://www.thymeleaf.org"
+    th:insert="~{layout/layout :: layout (title = ${site.title}, canonical = ${site.url}, content = ~{::content}, isPost = false)}"
+    th:with="isFirstIndex = ${posts.first}">
+
+    <th:block th:fragment="content" th:with="isEmpty = ${#lists.isEmpty(posts)}">
+        <div th:if="${isEmpty}" class="card card-empty">
+            <i class="ri-inbox-2-fill"></i>
+            还没有发表过文章
+        </div>
+        <th:block th:unless="${isEmpty}">
+            <!-- <th:block th:replace="~{::firstIndex}"/> -->
+            <th:block th:replace="~{main/article-list :: articleList (${posts.items})}" />
+            <th:block th:replace="~{main/pagination :: pagination (${posts}, '/index')}" />
+        </th:block>
+    </th:block>
+</th:block>

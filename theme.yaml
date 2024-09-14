@@ -3,7 +3,7 @@ kind: Theme
 metadata:
   name: as-rust-blog-theme
 spec:
-  displayName: Theme Starter
+  displayName: as-rust-blog-theme
   author:
     name: 如尘
     website: "http://47.109.177.36/"

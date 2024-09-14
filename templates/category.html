@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <h1 th:text="${category.spec.displayName}"></h1>
-    <ul>
-      <li th:each="post : ${posts.items}">
-        <a
-          th:href="@{${post.status.permalink}}"
-          th:text="${post.spec.title}"
-        ></a>
-      </li>
-    </ul>
-    <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">上一页</a>
-    <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">下一页</a>
+<th:block xmlns:th="https://www.thymeleaf.org" th:insert="~{layout/layout :: layout (title = ${'分类：' + category.spec.displayName + ' - ' +site.title},
+       canonical = ${category.status.permalink}, content = ~{::content}, isPost = false)}">
+  <th:block th:fragment="content" th:with="isEmpty = ${#lists.isEmpty(posts)}">
+    <div th:if="${isEmpty}" class="card card-empty">
+      <i class="ri-inbox-2-fill"></i>
+      该分类下没有文章，回<a th:href="${site.url}">主页</a>看看吧
+    </div>
+    <th:block th:unless="${isEmpty}">
+      <div class="card card-content main-title">
+        <ul class="breadcrumb">
+          <li><a th:href="@{/categories}"><i class="ri-apps-line"></i>分类</a></li>
+          <li th:text="${category.spec.displayName}"></li>
+        </ul>
+      </div>
+      <th:block th:replace="~{main/article_list :: articleList (${posts.items})}" />
+      <th:block th:replace="~{main/pagination :: pagination (${posts}, ${category.status.permalink})}" />
+    </th:block>
   </th:block>
-</html>
+</th:block>

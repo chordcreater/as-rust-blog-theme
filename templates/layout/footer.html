@@ -1,0 +1,36 @@
+<footer class="footer" xmlns:th="https://www.thymeleaf.org">
+    <div class="container">
+        <ul class="footer-container">
+            <li>
+                <a class="logo-title" th:href="${site.url}">
+                    <th:block th:if="${#strings.isEmpty(site.logo)}" th:text="${site.title}" />
+                    <th:block th:unless="${#strings.isEmpty(site.logo)}">
+                        <img class="logo-img" th:src="${site.logo}" th:alt="${site.title}" height="28">
+                        <img class="logo-img-dark"
+                            th:src="${#strings.defaultString(theme.config.basic_info.night_logo, site.logo)}"
+                            th:alt="${site.title}" height="28">
+                    </th:block>
+                </a>
+            </li>
+            <li>
+                <p class="icon-spot">
+                    <span th:text="'&copy; '+${#dates.format(#dates.createNow(), 'yyyy')}+' '+ ${site.title}"></span>
+                </p>
+                <p class="icon-spot"
+                    th:if="${!#strings.isEmpty(theme.config.basic_info.website_time) || theme.config.enhance.enable_busuanzi == true}">
+                    <span th:if="${!#strings.isEmpty(theme.config.basic_info.website_time)}" id="websiteDate">建站<span
+                            class="stand">00</span>天<span class="stand">0</span>时<span class="stand">0</span>分<span
+                            class="stand">0</span>秒</span>
+                </p>
+                <p th:if="${!#strings.isEmpty(theme.config.basic_info.record_number_ps)}">
+                    <a th:href="'https://beian.mps.gov.cn/#/query/webSearch?code=' + ${theme.config.basic_info.record_number_ps.replaceAll('[^\d]', '')}"
+                        target="_blank" rel="noopener noreferrer nofollow">
+                        <img th:src="${#theme.assets('/img/ga.png')}" alt="公网安备"
+                            style="vertical-align: text-top; width: 1.2em; margin-right: 4px;" />[[${theme.config.basic_info.record_number_ps}]]
+                    </a>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+</footer>

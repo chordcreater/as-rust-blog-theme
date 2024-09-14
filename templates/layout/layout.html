@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" th:class="${theme.config.basic_style.theme_style}"
+    th:fragment="layout (title, canonical, content, isPost)">
+
+<th:block
+    th:with="contributor = ${contributorFinder.getContributor(theme.config.basic_info.metadata_name)},
+    stats = ${siteStatsFinder.getStats()},
+    enableComment = ${baseEnableComment == true && site.comment.enable && pluginFinder.available('PluginCommentWidget')}">
+    <th:block th:replace="~{layout/head :: head}" />
+
+    <body>
+        <th:block th:replace="~{layout/navbar}" />
+        <section class="section">
+            <div th:class="${theme.config.basic_style.sidebar_column != 'all' ? 'container two-column' : 'container' }">
+                <div class="columns">
+                    <div class="column column-main">
+                        <th:block th:replace="${content}" />
+                    </div>
+                    <th:block th:replace="~{layout/widget :: widget('left')}" />
+                    <th:block th:replace="~{layout/widget :: widget('right')}" />
+                </div>
+            </div>
+
+        </section>
+        <th:block th:replace="~{layout/footer}" />
+        <!-- <th:block th:replace="~{layout/scripts}" /> -->
+    </body>
+</th:block>
+
+</html>

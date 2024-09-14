@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <h1>分类目录</h1>
-    <ul>
-      <li th:each="category : ${categories}">
-        <a
-          th:href="@{${category.status.permalink}}"
-          th:text="${category.spec.displayName}"
-        ></a>
-      </li>
-    </ul>
+<th:block xmlns:th="https://www.thymeleaf.org"
+  th:insert="~{layout/layout :: layout (title = '分类 - ' + ${site.title}, canonical = @{/categories}, content = ~{::content}, isPost = false)}">
+  <th:block th:fragment="content" th:with="isEmpty = ${#lists.isEmpty(categories)}">
+    <div th:if="${isEmpty}" class="card card-empty">
+      <i class="ri-inbox-2-fill"></i>
+      还没有创建过分类，回<a th:href="${site.url}">主页</a>看看吧
+    </div>
+    <th:block th:unless="${isEmpty}">
+      <div class="card card-content">
+        <div class="card-tab">
+          <div>文章分类</div>
+        </div>
+        <ul class="menu-list">
+          <th:block th:replace="~{:: categories (${categories})}" />
+        </ul>
+      </div>
+    </th:block>
   </th:block>
-</html>
+  <th:block th:fragment="categories (categories)">
+    <li th:each="category : ${categories}">
+      <a class="level is-marginless" th:href="${category.status.permalink}">
+        <span class="level-item" th:text="${category.spec.displayName}"></span>
+        <span class="level-item tag"
+          th:text="${category.status.postCount == null ? 0 : category.status.postCount}"></span>
+      </a>
+      <ul th:if="${!#lists.isEmpty(category.children)}">
+        <th:block th:replace="~{:: categories (${category.children})}" />
+      </ul>
+    </li>
+  </th:block>
+</th:block>

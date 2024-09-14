@@ -1,0 +1,104 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="article (post, type)"
+    th:with="updateInterval = ${T(java.lang.Math).floor((#dates.createNow().getTime()/1000.0 - post.status.lastModifyTime.getEpochSecond())/86400.0).intValue()},
+     thumbnail = ${#strings.isEmpty(post.spec.cover) ? #strings.isEmpty(theme.config.post.default_thumbnail) ? '' : theme.config.post.default_thumbnail + (#strings.contains(theme.config.post.default_thumbnail, '?') ? '&' : '?') + 'id=' + post.metadata.name : post.spec.cover}">
+
+    <div th:if="${!#strings.isEmpty(thumbnail)}" class="card widget">
+        <div class="cover-image" th:style="'background-image: url(' + ${thumbnail} + ')'">
+            <div th:if="${type == 'Post' && !#lists.isEmpty(post.categories)}" class="category">
+                <a th:each="cy : ${post.categories}" th:href="${cy.status.permalink}"
+                    th:text="${cy.spec.displayName}"></a>&nbsp;
+            </div>
+            <div class="details">
+                <h1 class="title" th:text="${post.spec.title}"></h1>
+                <ul class="breadcrumb">
+                    <li th:text="${#dates.format(post.spec.publishTime, 'yyyy-MM-dd HH:mm')}"></li>
+                    <li><i class="ri-eye-line"></i>[[${post.stats.visit}]]</li>
+                    <li th:if="${post.spec.allowComment}" class="is-hidden-mobile"><i
+                            class="ri-question-answer-line"></i>[[${post.stats.comment}]]
+                    </li>
+                    <li><i class="ri-thumb-up-line"></i>[[${post.stats.upvote}]]</li>
+                    <li><i class="ri-quill-pen-line"></i>[[${#strings.length(#strings.trim(post.content.content))}]]
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 文章失效天数提示 -->
+    <div th:if="${!#strings.isEmpty(theme.config.post.invalid_tips_day) && updateInterval > T(java.lang.Long).parseLong(theme.config.post.invalid_tips_day)}"
+        class="card tips brightness"><i class="ri-close-line click-close" data-close=".tips"></i>本文最后更新于
+        [[${#dates.format(post.status.lastModifyTime,'yyyy-MM-dd')}]]，距今已有 [[${updateInterval}]]
+        天，若文章内容或图片链接失效，请留言反馈。
+    </div>
+    <!-- 在文章顶部显示一条提示 -->
+    <div th:if="${!#strings.isEmpty(post.metadata.annotations.get('tips'))}" class="card tips brightness"><i
+            class="ri-close-line click-close" data-close=".tips"></i>[[${post.metadata.annotations.tips}]]
+    </div>
+    <div class="card">
+        <div class="card-content main">
+            <th:block th:if="${#strings.isEmpty(thumbnail)}">
+                <h1 class="title" th:text="${post.spec.title}"></h1>
+                <div class="meta">
+                    <ul class="breadcrumb">
+                        <li th:text="${#dates.format(post.spec.publishTime, 'yyyy-MM-dd HH:mm')}"></li>
+                        <li><i class="ri-eye-line"></i>[[${post.stats.visit}]]</li>
+                        <li th:if="${post.spec.allowComment}" class="is-hidden-mobile"><i
+                                class="ri-question-answer-line"></i>[[${post.stats.comment}]]
+                        </li>
+                        <li><i class="ri-thumb-up-line"></i>[[${post.stats.upvote}]]</li>
+                        <li><i class="ri-quill-pen-line"></i>[[${#strings.length(#strings.trim(post.content.content))}]]
+                        </li>
+                    </ul>
+                    <div th:if="${type == 'Post' && !#lists.isEmpty(post.categories)}" class="level-item">
+                        <a th:each="cy : ${post.categories}" th:href="${cy.status.permalink}"
+                            th:text="${cy.spec.displayName}"></a>
+                    </div>
+                </div>
+                <hr />
+            </th:block>
+
+            <div th:data-id="${post.metadata.name}" th:data-target="${type}" class="main-content article"
+                th:utext="${post.content.content}">
+            </div>
+            <!-- 捐赠与点赞 -->
+            <!-- <th:block th:replace="~{main/admire}"/> -->
+            <!-- 本文tag -->
+            <div th:if="${type == 'Post' && !#lists.isEmpty(post.tags)}" class="article-operation">
+                <div class="level-item">
+                    <a th:each=" tag : ${post.tags}" th:href="${tag.status.permalink}"
+                        th:text="${tag.spec.displayName}"></a>
+                </div>
+            </div>
+            <!-- 许可与分享 -->
+            <!-- <th:bolck th:if="${enableCopyright || enableShare}">
+                <hr/>
+                <th:block th:if="${enableCopyright}">
+                    <th:block th:replace="~{main/copyright}"/>
+                </th:block>
+                <div th:if="${enableShare}" class="dshare"></div>
+            </th:bolck> -->
+        </div>
+    </div>
+
+    <!-- 前一篇，后一篇 -->
+    <th:block th:if="${type == 'Post'}" th:with="postCursor = ${postFinder.cursor(post.metadata.name)}">
+        <div th:if="${postCursor.hasPrevious() || postCursor.hasNext()}" class="card">
+            <div class="level post-navigation card-content">
+                <a th:if="${postCursor.hasPrevious()}" class="level-item"
+                    th:href="@{${postCursor.previous.status.permalink}}">
+                    <i class="ri-arrow-left-s-line"></i><span th:text="${postCursor.previous.spec.title}"></span>
+                </a>
+                <a th:if="${postCursor.hasNext()}" class="level-item" th:href="@{${postCursor.next.status.permalink}}">
+                    <span th:text="${postCursor.next.spec.title}"></span><i class="ri-arrow-right-s-line"></i>
+                </a>
+            </div>
+        </div>
+    </th:block>
+
+    <!-- 评论 -->
+    <div class="card card-content" id="comment-wrapper" th:if="${enableComment}">
+        <h3 class="comment-title">评论</h3>
+        <div th:if="${haloCommentEnabled}">
+            <halo:comment group="content.halo.run" th:kind="${type}" th:attr="name=${post.metadata.name}" />
+        </div>
+    </div>
+</th:block>

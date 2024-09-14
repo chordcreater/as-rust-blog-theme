@@ -1,0 +1,70 @@
+<div xmlns:th="https://www.thymeleaf.org" th:fragment="widget (sidebar)"
+    th:class="'card widget profile ' + ${sidebar.hide}">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item" style="flex-direction: column;">
+                <figure class="image">
+                    <img class="avatar" th:src="${contributor.avatar}" th:alt="${contributor.displayName}">
+                </figure>
+                <p class="nickname" th:text="${contributor.displayName}"></p>
+                <p class="motto spark-input" th:text="${contributor.bio}"></p>
+                <p th:if="${!#strings.isEmpty(theme.config.sidebar.profile_location)}" class="address">
+                    <i class="ri-map-pin-line"></i>
+                    <span th:text="${theme.config.sidebar.profile_location}"></span>
+                </p>
+            </div>
+        </nav>
+        <nav class="level" th:if="${!#lists.isEmpty(theme.config.sidebar.custom_stats)}">
+            <div th:each="item,sindex :${theme.config.sidebar.custom_stats}" class="level-item"
+                th:switch="${item.type}">
+                <div th:case="visit">
+                    <p class="heading">访问</p>
+                    <p class="value" th:title="${stats.visit / 10000 > 0} ? ${stats.visit}"
+                        th:text="${stats.visit / 1000000 > 0} ? (${#numbers.formatDecimal(stats.visit / 1000000.0,1,1)} + 'bw') : (${stats.visit / 10000 > 0} ? (${#numbers.formatDecimal(stats.visit / 10000.0,1,2)} + 'w') : ${stats.visit})">
+                    </p>
+                </div>
+                <div th:case="upvote">
+                    <p class="heading">点赞</p>
+                    <p class="value" th:title="${stats.upvote / 10000 > 0} ? ${stats.upvote}"
+                        th:text="${stats.upvote / 1000000 > 0} ? (${#numbers.formatDecimal(stats.upvote / 1000000.0,1,1)} + 'bw') : (${stats.upvote / 10000 > 0} ? (${#numbers.formatDecimal(stats.upvote / 10000.0,1,2)} + 'w') : ${stats.upvote})">
+                    </p>
+                </div>
+                <div th:case="comment">
+                    <p class="heading">评论</p>
+                    <p class="value" th:title="${stats.comment / 10000 > 0} ? ${stats.comment}"
+                        th:text="${stats.comment / 1000000 > 0} ? (${#numbers.formatDecimal(stats.comment / 1000000.0,1,1)} + 'bw') : (${stats.comment / 10000 > 0} ? (${#numbers.formatDecimal(stats.comment / 10000.0,1,2)} + 'w') : ${stats.comment})">
+                    </p>
+                </div>
+                <div th:case="category">
+                    <p class="heading">分类</p>
+                    <p class="value" th:title="${stats.category / 10000 > 0} ? ${stats.category}"
+                        th:text="${stats.category / 1000000 > 0} ? (${#numbers.formatDecimal(stats.category / 1000000.0,1,1)} + 'bw') : (${stats.category / 10000 > 0} ? (${#numbers.formatDecimal(stats.category / 10000.0,1,2)} + 'w') : ${stats.category})">
+                    </p>
+                </div>
+                <div th:case="tag" th:with="tagsList = ${tagFinder.listAll()}, tags = ${#lists.size(tagsList)}">
+                    <p class="heading">标签</p>
+                    <p class="value" th:title="${tags / 10000 > 0} ? ${tags}"
+                        th:text="${tags / 1000000 > 0} ? (${#numbers.formatDecimal(tags / 1000000.0,1,1)} + 'bw') : (${tags / 10000 > 0} ? (${#numbers.formatDecimal(tags / 10000.0,1,2)} + 'w') : ${tags})">
+                    </p>
+                </div>
+                <div th:case="*">
+                    <p class="heading">文章</p>
+                    <p class="value" th:title="${stats.post / 10000 > 0} ? ${stats.post}"
+                        th:text="${stats.post / 1000000 > 0} ? (${#numbers.formatDecimal(stats.post / 1000000.0,1,1)} + 'bw') : (${stats.post / 10000 > 0} ? (${#numbers.formatDecimal(stats.post / 10000.0,1,2)} + 'w') : ${stats.post})">
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div th:if="${!#strings.isEmpty(theme.config.sidebar.profile_theme_button)}" class="level"
+            th:with="content = ${#strings.arraySplit(theme.config.sidebar.profile_theme_button,'|')}">
+            <a class="level-item button is-link is-rounded" th:href="${content.length>=2?content[1]:''}" target="_blank"
+                rel="nofollow noopener noreferrer" th:text="${content[0]}"></a>
+        </div>
+        <div th:if="${!#lists.isEmpty(theme.config.sidebar.custom_options)}" class="level">
+            <a th:each="option :${theme.config.sidebar.custom_options}" class="level-item button is-transparent"
+                target="_blank" th:title="${option.name}" th:href="${option.url}" rel="nofollow noopener noreferrer">
+                <i th:class="${option.icon}"></i>
+            </a>
+        </div>
+    </div>
+</div>

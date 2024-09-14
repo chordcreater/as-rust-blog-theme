@@ -1,0 +1,497 @@
+@charset "utf-8";
+// 桌面设备最小宽度
+@desktop-min-width: 1216px;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+.navbar {
+  &-above{
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1);  // 向下和四周的阴影
+    background-color: var(--background);
+    width: 100%;
+    .container {
+      display: flex;
+      align-items: center;
+    }
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+      .navbar-item {
+        display: flex;
+        align-items: center;
+        padding-right: 0.75rem;
+        flex-grow: 0;  //它们控制着flex项目的放大（增长）和缩小（收缩）行为
+        flex-shrink: 0;
+        color: #4a4a4a;
+        line-height: 1.5;
+      }
+      .item{
+        position: relative; //子绝父相，该绝对定位是为了后续::after形成一个鼠标点上去下面有一个视觉上蓝条的效果
+        cursor: pointer;
+        align-items: center; //flex布局，在垂直方向上在父容器的中心线上对齐
+        line-height: 3.5rem;
+        height: 3.5rem;
+        font-size: 15px;
+        padding: 0 8px;
+        user-select: none;  //让用户无法用鼠标选择
+        color: var(--title);
+
+        &:last-child {
+          margin-right: 0;
+        }
+        // 鼠标点上去，蓝条效果
+        &::after {
+          opacity: 0;  // 透明度，0为不可见
+          position: absolute;
+          bottom: 0;
+          left: 6px;
+          right: 6px;
+          content: "";
+          height: 3px;
+          transform: scaleX(0.25); // 初始宽度为0.25
+          background: var(--theme);
+          border-radius: 6px 6px 0 0; //  给下划线添加圆角,6px 应用于左上角,右上角,表示这个角没有圆角，是直角
+          transition: opacity 0.5s, transform 0.5s; // 平滑过渡效果
+        }
+        &:hover {
+          color: var(--theme);
+          &::after {
+            opacity: 0.3;
+            transform: scaleX(0.7);
+          }
+        }
+  
+        &.current {
+          color: var(--theme);
+  
+          &::after {
+            opacity: 1;
+            transform: scaleX(1);
+          }
+  
+          &:hover::after {
+            opacity: 1;
+            transform: scaleX(1);
+          }
+        }
+      }
+     
+    }
+  }
+  
+}
+
+a {
+  text-decoration: none; //去掉下划线
+  word-break: break-all;  //break-all值允许在单词内的任意字符处进行换行.因为它可以防止文本溢出其容器边界
+}
+
+
+.container {
+  flex-grow: 1;
+  margin: 0 auto;
+  position: relative;
+  width: auto;
+}
+
+li, ol, ul {
+  list-style: none
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+fieldset,hr {
+  background-color: var(--light-b);
+  border: none;
+  display: block;
+  height: 1px;
+  margin: 11.2px 0;
+}
+
+.section {
+  .columns {
+    .column {
+      padding: 0.75rem;
+      &-left {
+        order: 1;
+      }
+      &-main {
+        order: 2;
+      }
+  
+      &-right {
+        order: 3;
+      }
+    }
+  }
+  .card {
+    color: var(--dark-c);
+    max-width: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1);  // 向下和四周的阴影
+    background-color: var(--background);
+    border-radius: var(--radius-wrap);
+
+    &-content {
+      padding: 0.6rem 1rem 1rem 1rem;
+    }
+
+    .card-title {
+      font-size: 15.4px;
+      text-transform: uppercase;
+      font-weight: 500;
+      height: 45px;
+      line-height: 45px;
+      padding: 0 15px;
+      border-bottom: 1px solid var(--light-b);
+      display: flex;
+      align-items: center;
+    
+      .card-title-label {
+        margin-right: 5px;
+        font-size: 1.2em;
+        color: var(--theme);
+      }
+
+      span {
+        //项目会放大以填充任何剩余空间（flex-grow: 1）,比如水平有两个标签：<span> <p>，span使用了flex：1,就会让两个标签左右分布
+        // 也可以用justify-content: space-between;来实现
+        flex: 1; 
+      }
+
+      .card-more {
+        font-size: 0.9em;
+        font-weight: 400;
+        color: var(--dark-b);
+
+        i {
+          font-size: 1.1em;
+        }
+
+        &:hover {
+          color: var(--theme);
+
+          i {
+            color: var(--theme);
+          }
+        }
+      }
+    }
+
+    .title {
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.25;
+      a{
+        color: inherit;
+      }
+    }
+  }
+  .column-main {
+    .meta {
+      display: flex;
+      align-items: item;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--dark-b);
+      font-size: .8rem;
+      overflow-x: auto;  // 如果内容在水平方向上超出了元素的宽度，浏览器会自动提供一个滚动条
+      .breadcrumb {
+        display: flex;
+        align-items: item;
+        justify-content: center;
+        align-items: center;
+        color: var(--dark-b);
+        font-size: .8rem;
+        flex-shrink: 0;
+        li:not(:first-child)::before {
+          content: "/";
+          color: var(--light-d);
+          padding: 0 5px;
+        }
+      }
+      
+    }
+    .main-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-indent: 1.5em; // 用来设置文本首行缩进的
+      line-height: 1.5em;
+      word-break: break-word;
+      color: var(--main);
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+  }
+}
+
+
+.widget {
+  // css选择器中.a.b和.a空格.b的区别，无空格为组合类选择器，有空格为后代选择器
+  &.profile {
+   
+    .level {
+      display: flex; 
+      justify-content: space-between; //当设置为 space-between 时，它会将弹性项目之间的空间平均分布，但第一个项目会紧贴容器的开始边，最后一个项目会紧贴容器的结束边，而中间的项目则会等间距地分布在这两者之间
+      &-item {
+        flex: 1;  // flex: 1;等同于flex-grow: 1; flex-shrink: 1; flex-basis: 0%;。这意味着flex项目将能够增长以填充额外空间，也能够缩小以适应容器空间不足的情况，并且它们的初始大小（由flex-basis决定）是0%。然而，在实际应用中，由于flex-basis的默认值是auto（对于flex项目来说），所以如果你没有明确设置flex-basis，那么flex: 1;的行为可能会略有不同，具体取决于flex项目的原始大小
+        flex-direction: column;  //因为具体长度是不知道的，此时垂直方向作为主轴进行分布
+        text-align: center !important;
+        
+      }
+      &:not(:first-child):not(:empty) {
+        margin-top: 1.5rem;
+      }
+    }
+
+    figure {
+      width: 98px;
+      height: 98px;
+      padding: 4px;
+      border-radius: 50%;
+      margin: 2em auto 0.5em auto;
+    }
+
+    .avatar {
+      transition: all 2s;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+
+      &:hover {
+        transform: rotate(-360deg);
+      }
+    }
+
+    .nickname {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+
+    .motto {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    .address {
+      color: #7a7a7a;
+      font-size: 1rem;
+      display: flex;
+      // flex布局，主轴默认为水平，以下两句实现水平和垂直居中
+      justify-content: center; //当设置为center时，它会将项目沿着主轴居中放置，这意味着如果主轴是水平的（即flex-direction为row或row-reverse），则项目将在水平方向上居中；如果主轴是垂直的（即flex-direction为column或column-reverse），则项目将在垂直方向上居中
+      align-items: center;    // 交叉轴方向上居中
+
+      i {
+        margin-right: 0.25em;
+      }
+    }
+
+    .heading {
+      font-size: 11px;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      // 它会将元素内的所有文本转换为大写字母
+      text-transform: uppercase;
+    }
+
+    .value {
+      color: var(--dark-c);
+      font-size: 2rem;
+      line-height: 1.125;
+      margin-bottom: 0;
+      font-weight: 400 !important;
+    }
+  }
+
+  &.categories {
+    .menu-list {
+      a {
+        border-radius: 2px;
+        color: var(--main);
+        display: block;
+        padding: 0.5em 0.75em;
+    
+        &:hover {
+          background-color: var(--bg-c);
+        }
+    
+        &.level {
+          display: flex;
+        }
+    
+        // &.is-active {
+        //   background-color: var(--bg-e);
+        //   color: var(--light-a);
+        // }
+      }
+    }
+  }
+  &.tags .card-content {
+    font-size: 0;
+    a {
+      width: unset;
+      margin: 4px;
+      line-height: 1.2;
+      overflow: unset;
+      text-overflow: unset;
+      white-space: unset;
+      text-align: left;
+      display: inline-block;
+      padding: 5px;
+      font-size: 13px;
+      color: var(--dark-b);
+      text-decoration: none;
+      background: var(--bg-d);
+      border: 1px solid var(--light-c);
+      border-radius: 3px;
+
+      &:hover {
+        color: var(--theme) !important;
+        border-color: var(--theme) !important;
+      }
+    }
+  }
+  &.recent-posts {
+    .list {
+      a {
+        border-radius: 2px;
+        color: var(--main);
+        display: block;
+        padding: 0.5em 0.75em;
+        // display: inline-block;
+        // position: relative;
+        // color: var(--main);
+        max-width: 85%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      
+        &:hover {
+          color: var(--theme);
+          text-decoration: underline;
+        }
+    
+        &.level {
+          display: flex;
+        }
+      }
+    }
+   
+  }
+}
+
+.footer {
+  background-color: transparent; //本身不会显示任何背景颜色，而是会展现出其父元素或页面背景的颜色和图案。这在创建叠加效果、实现复杂的布局和动画时非常有用
+  backdrop-filter: blur(10px);  //它允许你对元素背后的区域（即该元素“背后”的内容）应用图形效果，比如模糊、亮度、对比度等
+  padding: 1.5rem;
+  position: relative;
+  // 伪元素::before和::after虽然被添加到元素的内容区域中，但它们并不直接对应于DOM（文档对象模型）中的兄弟节点。
+  // 虽然它们不是DOM中的兄弟节点，但在CSS的样式化过程中，它们确实是以类似的方式被处理的，即它们都与宿主元素相关联，并受其样式的影响（如字体、颜色等继承属性）
+  // 在CSS中，当讨论元素的定位（特别是绝对定位）时，祖先元素并不包括兄弟元素作为参考点,但伪元素的祖先元素确实包括伪元素的宿主元素
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+  }
+  &-container {
+    display: flex;
+    justify-content: flex-start; //当设置为center时，它会将项目沿着主轴居中放置，这意味着如果主轴是水平的（即flex-direction为row或row-reverse），则项目将在水平方向上居中；如果主轴是垂直的（即flex-direction为column或column-reverse），则项目将在垂直方向上居中
+    // align-items: flex-start;  
+    & > li {
+      padding: 0 5px;
+      color: var(--dark-b);
+      line-height: 1.6em;
+
+      & > p:not(:first-child) {
+        font-size: 0.9em;
+      }
+    }
+  }
+}
+
+@media (min-width: 1408px) {
+  .section .card {
+
+    &-small .main-content {
+      -webkit-line-clamp: 3 !important;
+      min-height: 4em;
+      max-height: 4.8em;
+    }
+
+    .cover-image {
+      min-height: 260px;
+    }
+
+    .thumbnail-image {
+      min-height: 210px;
+    }
+  }
+
+  .container {
+    max-width: 1344px;
+
+    .column {
+
+      &-side {
+        flex: none;
+        width: 22%;
+      }
+
+      &-main {
+        flex: none;
+        width: 56%;
+      }
+    }
+
+    .columns, .level {
+      display: flex;
+    }
+    // &.two-column {
+
+    //   .column {
+
+    //     &-side {
+    //       flex: none;
+    //       width: 25%;
+    //     }
+
+    //     &-main {
+    //       flex: none;
+    //       width: 75%;
+    //     }
+    //   }
+    // }
+  }
+}
+
+@media (min-width: @desktop-min-width) {
+  .card:not(.is-hidden-desktop):not(.is-hidden-all) ~ .card {
+    margin-top: 1.4rem !important;
+  }
+}
+
+html{
+ 
+  box-sizing: border-box;
+  font-size: 14px;
+  background-color: var(--bg-f);
+}
+
+
+body, button, input, select, textarea {
+  font-family: "As rust Font", BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

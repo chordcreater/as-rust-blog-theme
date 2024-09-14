@@ -1,0 +1,34 @@
+<!-- <th:block xmlns:th="https://www.thymeleaf.org">
+    <script th:src="@{/assets/js/utils.min.js(mew=${theme.spec.version})}"></script>
+    <script th:src="@{/assets/js/btoc.min.js(mew=${theme.spec.version})}"></script>
+    <script th:if="${isFirstIndex == true && !#lists.isEmpty(theme.config.basic_style.carousel_options)}" data-pjax
+            th:src="@{/assets/lib/swiper@8.4.6/swiper-bundle.min.js}"></script>
+    <script th:src="@{/assets/js/common.min.js(mew=${theme.spec.version})}"></script>
+
+    <th:block th:if="${isPost}">
+        <script th:if="${isPost}" data-pjax th:src="@{/assets/lib/highlightjs@11.5.1/highlight.min.js}"></script>
+        <script th:if="${isPost}" data-pjax th:src="@{/assets/lib/clipboard@2.0.10/clipboard.min.js}"></script>
+        <script th:if="${enableKatex}" data-pjax th:src="@{/assets/lib/katex@0.12.0/katex.min.js}"></script>
+        <script th:if="${enableShare}" data-pjax th:src="@{/assets/js/dshare.min.js(mew=${theme.spec.version})}"></script>
+        <script th:if="${isPost}" data-pjax th:src="@{/assets/js/post.min.js(mew=${theme.spec.version})}"></script>
+        <script th:if="${isJournals}" data-pjax th:src="@{/assets/js/journals.min.js(mew=${theme.spec.version})}"></script>
+    </th:block>
+    <script th:if="${isPhotos}" data-pjax th:src="@{/assets/lib/justifiedGallery@3.8.1/jquery.justifiedGallery.min.js}"></script>
+
+    <script th:src="@{/assets/js/mew-custom.min.js(mew=${theme.spec.version})}"></script>
+
+    <script th:if="${theme.config.basic_style.load_progress != 'none'}" th:src="@{/assets/js/dprogress.min.js(mew=${theme.spec.version})}"></script>
+    <th:block th:if="${theme.config.enhance.enable_pjax}">
+        <script th:src="@{/assets/lib/jquery-pjax@2.0.1/jquery.pjax.min.js}"></script>
+        <script th:src="@{/assets/js/pjax.min.js(mew=${theme.spec.version})}"></script>
+    </th:block>
+    <script async th:src="@{/assets/lib/qmsg/qmsg.min.js}"></script>
+
+    <script th:if="${isPost == true || isPhotos == true}" data-pjax async th:src="@{/assets/lib/fancybox@5.3.7/jquery.fancybox.min.js}"></script>
+
+    <script th:if="${theme.config.enhance.enable_busuanzi != false}" async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    [(${theme.config.custom.external_js_body})]
+    <script th:if="${!#strings.isEmpty(theme.config.custom.inline_js_body)}" type="text/javascript" th:utext="${theme.config.custom.inline_js_body}">
+    </script>
+</th:block> -->
