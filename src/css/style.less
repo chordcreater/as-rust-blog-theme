@@ -3,35 +3,39 @@
 @desktop-min-width: 1216px;
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
+}
 
 .navbar {
-  &-above{
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1);  // 向下和四周的阴影
+  &-above {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1); // 向下和四周的阴影
     background-color: var(--background);
     width: 100%;
+
     .container {
       display: flex;
       align-items: center;
     }
+
     .navbar-nav {
       display: flex;
       align-items: center;
+
       .navbar-item {
         display: flex;
         align-items: center;
         padding-right: 0.75rem;
-        flex-grow: 0;  //它们控制着flex项目的放大（增长）和缩小（收缩）行为
+        flex-grow: 0; //它们控制着flex项目的放大（增长）和缩小（收缩）行为
         flex-shrink: 0;
         color: #4a4a4a;
         line-height: 1.5;
       }
-      .item{
+
+      .item {
         position: relative; //子绝父相，该绝对定位是为了后续::after形成一个鼠标点上去下面有一个视觉上蓝条的效果
         cursor: pointer;
         align-items: center; //flex布局，在垂直方向上在父容器的中心线上对齐
@@ -39,15 +43,16 @@
         height: 3.5rem;
         font-size: 15px;
         padding: 0 8px;
-        user-select: none;  //让用户无法用鼠标选择
+        user-select: none; //让用户无法用鼠标选择
         color: var(--title);
 
         &:last-child {
           margin-right: 0;
         }
+
         // 鼠标点上去，蓝条效果
         &::after {
-          opacity: 0;  // 透明度，0为不可见
+          opacity: 0; // 透明度，0为不可见
           position: absolute;
           bottom: 0;
           left: 6px;
@@ -59,37 +64,132 @@
           border-radius: 6px 6px 0 0; //  给下划线添加圆角,6px 应用于左上角,右上角,表示这个角没有圆角，是直角
           transition: opacity 0.5s, transform 0.5s; // 平滑过渡效果
         }
+
         &:hover {
           color: var(--theme);
+
           &::after {
             opacity: 0.3;
             transform: scaleX(0.7);
           }
         }
-  
+
         &.current {
           color: var(--theme);
-  
+
           &::after {
             opacity: 1;
             transform: scaleX(1);
           }
-  
+
           &:hover::after {
             opacity: 1;
             transform: scaleX(1);
           }
         }
       }
-     
+    }
+    .item-dropdown {
+      margin-right: 15px;
+      position: relative;
+   
+      &-link {
+        display: flex;
+        align-items: center;
+        // a {
+        //   height: 50px;
+        //   line-height: 50px;
+        //   font-size: 15px;
+        //   padding-left: 8px;
+        //   padding-right: 3px;
+        //   transition: color 0.35s;
+        //   white-space: nowrap;
+        //   color: var(--main);
+        // }
+      }
+      &:hover {
+        .item-dropdown-menu {
+          visibility: visible;
+          opacity: 1;
+          // transform: translateX(0) perspective(600px) rotateY(0);
+        }
+      
+      }
+      &-menu {
+        visibility: hidden;
+        min-width: 90px;
+        max-width: 200px;
+        position: absolute;
+        top: 60px;
+        left: -20px;
+        z-index: 5;  //在同一堆叠上下文中，任何具有较低 z-index 值的定位元素都将被该元素覆盖
+        text-align: center;
+        border-top: 3px solid var(--theme);
+        background: var(--bg-d);
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        border-radius: 0 0 var(--radius-inner) var(--radius-inner);
+        padding: 10px 0;
+        &::before {
+          content: "";
+          position: absolute;
+          top: -10px;
+          left: 50%;
+          -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+          width: 0;
+          height: 0;
+          border-left: 7px solid transparent;
+          border-right: 7px solid transparent;
+          border-bottom: 7px solid var(--theme);
+        }
+        .item-sub-li {
+          position: relative;
+          display: flex;  
+          align-items: center;
+          justify-content: center;
+          height: 34px;
+          .item-sub {
+            visibility: hidden;
+            min-width: 90px;
+            max-width: 200px;
+            z-index: 10;
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            margin-top: -17px;
+            padding-left: 7px;
+            box-shadow: 7px 3px 8px 0 rgba(0, 0, 0, .15);
+            border-radius: 0 var(--radius-inner) var(--radius-inner) 0;
+            &::before {
+              position: absolute;
+              top: 10px;
+              left: 0;
+              content: "";
+              transform: translateX(-50%);
+              width: 0;
+              height: 0;
+              border: 7px solid transparent;
+              border-right-color: var(--theme);
+            }
+          }
+          &:hover {
+            .item-sub {
+              visibility: visible;
+              opacity: 1;
+              // transform: translateX(0) perspective(600px) rotateY(0);
+            }
+          }
+        }  
+      }
     }
   }
-  
+
 }
 
 a {
+  color: var(--theme);
   text-decoration: none; //去掉下划线
-  word-break: break-all;  //break-all值允许在单词内的任意字符处进行换行.因为它可以防止文本溢出其容器边界
+  word-break: break-all; //break-all值允许在单词内的任意字符处进行换行.因为它可以防止文本溢出其容器边界
 }
 
 
@@ -100,17 +200,25 @@ a {
   width: auto;
 }
 
-li, ol, ul {
+li,
+ol,
+ul {
   list-style: none
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 100%;
   font-weight: 500;
   margin-bottom: 10px;
 }
 
-fieldset,hr {
+fieldset,
+hr {
   background-color: var(--light-b);
   border: none;
   display: block;
@@ -122,30 +230,30 @@ fieldset,hr {
   .columns {
     .column {
       padding: 0.75rem;
+
       &-left {
         order: 1;
       }
+
       &-main {
         order: 2;
       }
-  
+
       &-right {
         order: 3;
       }
     }
   }
+
   .card {
     color: var(--dark-c);
     max-width: 100%;
     word-wrap: break-word;
     word-break: break-all;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1);  // 向下和四周的阴影
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1); // 向下和四周的阴影
     background-color: var(--background);
     border-radius: var(--radius-wrap);
-
-    &-content {
-      padding: 0.6rem 1rem 1rem 1rem;
-    }
+    position: relative;
 
     .card-title {
       font-size: 15.4px;
@@ -157,7 +265,7 @@ fieldset,hr {
       border-bottom: 1px solid var(--light-b);
       display: flex;
       align-items: center;
-    
+
       .card-title-label {
         margin-right: 5px;
         font-size: 1.2em;
@@ -167,7 +275,7 @@ fieldset,hr {
       span {
         //项目会放大以填充任何剩余空间（flex-grow: 1）,比如水平有两个标签：<span> <p>，span使用了flex：1,就会让两个标签左右分布
         // 也可以用justify-content: space-between;来实现
-        flex: 1; 
+        flex: 1;
       }
 
       .card-more {
@@ -193,12 +301,142 @@ fieldset,hr {
       font-size: 1.6rem;
       font-weight: 400;
       line-height: 1.25;
-      a{
+
+      a {
         color: inherit;
+        &:hover {
+          color: var(--theme);
+          text-decoration: underline;
+        }
       }
     }
+
+    &-content {
+      padding: 0.6rem 1rem 1rem 1rem;
+
+      &.tags {
+        .card-tab {
+          height: 52px;
+          border-bottom: 1px solid var(--light-b);
+          margin-bottom: 15px;
+          div {
+            position: absolute;
+            top: 15px;
+            left: -10px;
+            background: var(--theme);
+            color: #fff;
+            padding: 0 12px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 2px 2px 2px 0;
+            box-shadow: 2px 5px 10px rgba(49, 58, 70, .15);
+            user-select: none; // 是CSS中一个用于控制用户是否可以选择文本的属性。当这个属性被设置为none时，它将阻止用户选择页面上的文本内容
+            
+            &::before {
+              content: '';
+              position: absolute;
+              bottom: -10px;
+              left: -10px;
+              border-style: solid;
+              border-width: 10px;
+              border-color: transparent var(--theme) transparent transparent;
+              // transform: rotate(90deg);
+            }
+          }
+        }
+        .tags-field {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          font-size: 1.3em;
+          span {
+            // display: inline-flex;
+            // justify-content: center;
+            background-color: var(--bg-c);
+            border-radius: 4px;
+            color: var(--dark-c);
+            font-size: .75em;
+            height: 2em;
+            line-height: 1.5;
+            padding-left: .75em;
+            padding-right: .75em;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      &.archives {
+        .timeline-title {
+          background-color: var(--bg-e);
+          color: var(--light-a);
+          border-radius: var(--radius-inner);
+          width: 5em;
+          height: 2em;
+          font-size: .75em;
+          text-align: center;
+          line-height: 2em;
+        }
+        .timeline {
+          border-left: 1px solid var(--light-b);
+          margin-left: 16px;
+          padding-left: 24px;
+          padding-top: 16px;
+          .media {
+            position: relative;
+            // display: flex;
+            &:not(:last-child) {
+              margin-bottom: 21px
+            }
+            &:first-child::before {
+              top: 4px;
+            }
+            &::before {
+              content: '';
+              display: block;
+              position: absolute;
+              left: -29px;
+              width: 9px;
+              height: 9px;
+              top: 18px;
+              background: var(--light-d);
+              border-radius: 50%;
+            }
+            .media-content {
+              time {
+                font-size: .85em;
+                display: block;
+                color: var(--dark-b);
+              }
+              .title {
+                color: var(--dark-c);
+                font-size: 1.1em !important;
+              }
+              p a {
+                font-size: .9em;
+                color: var(--dark-e);
+              }
+              .has-link-grey {
+                line-height: 1.85rem;
+                &:hover{
+                  color: var(--theme);
+                  text-decoration: underline;
+                  // transition: all .35s ease-in-out;
+                }
+               
+              }
+            }
+          }
+        }
+      }
+    }
+
+  
   }
+
   .column-main {
+    // 文章列表块中的简介内容之前的统计信息或分类信息等：如时间，访问量等
     .meta {
       display: flex;
       align-items: item;
@@ -206,7 +444,8 @@ fieldset,hr {
       align-items: center;
       color: var(--dark-b);
       font-size: .8rem;
-      overflow-x: auto;  // 如果内容在水平方向上超出了元素的宽度，浏览器会自动提供一个滚动条
+      overflow-x: auto; // 如果内容在水平方向上超出了元素的宽度，浏览器会自动提供一个滚动条
+      // 面包屑
       .breadcrumb {
         display: flex;
         align-items: item;
@@ -215,14 +454,16 @@ fieldset,hr {
         color: var(--dark-b);
         font-size: .8rem;
         flex-shrink: 0;
+
         li:not(:first-child)::before {
           content: "/";
           color: var(--light-d);
           padding: 0 5px;
         }
       }
-      
+
     }
+
     .main-content {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -238,18 +479,21 @@ fieldset,hr {
 
 
 .widget {
+
   // css选择器中.a.b和.a空格.b的区别，无空格为组合类选择器，有空格为后代选择器
   &.profile {
-   
+
     .level {
-      display: flex; 
+      display: flex;
       justify-content: space-between; //当设置为 space-between 时，它会将弹性项目之间的空间平均分布，但第一个项目会紧贴容器的开始边，最后一个项目会紧贴容器的结束边，而中间的项目则会等间距地分布在这两者之间
+
       &-item {
-        flex: 1;  // flex: 1;等同于flex-grow: 1; flex-shrink: 1; flex-basis: 0%;。这意味着flex项目将能够增长以填充额外空间，也能够缩小以适应容器空间不足的情况，并且它们的初始大小（由flex-basis决定）是0%。然而，在实际应用中，由于flex-basis的默认值是auto（对于flex项目来说），所以如果你没有明确设置flex-basis，那么flex: 1;的行为可能会略有不同，具体取决于flex项目的原始大小
-        flex-direction: column;  //因为具体长度是不知道的，此时垂直方向作为主轴进行分布
+        flex: 1; // flex: 1;等同于flex-grow: 1; flex-shrink: 1; flex-basis: 0%;。这意味着flex项目将能够增长以填充额外空间，也能够缩小以适应容器空间不足的情况，并且它们的初始大小（由flex-basis决定）是0%。然而，在实际应用中，由于flex-basis的默认值是auto（对于flex项目来说），所以如果你没有明确设置flex-basis，那么flex: 1;的行为可能会略有不同，具体取决于flex项目的原始大小
+        flex-direction: column; //因为具体长度是不知道的，此时垂直方向作为主轴进行分布
         text-align: center !important;
-        
+
       }
+
       &:not(:first-child):not(:empty) {
         margin-top: 1.5rem;
       }
@@ -283,13 +527,14 @@ fieldset,hr {
       font-size: 1rem;
       line-height: 1.4;
     }
+
     .address {
       color: #7a7a7a;
       font-size: 1rem;
       display: flex;
       // flex布局，主轴默认为水平，以下两句实现水平和垂直居中
       justify-content: center; //当设置为center时，它会将项目沿着主轴居中放置，这意味着如果主轴是水平的（即flex-direction为row或row-reverse），则项目将在水平方向上居中；如果主轴是垂直的（即flex-direction为column或column-reverse），则项目将在垂直方向上居中
-      align-items: center;    // 交叉轴方向上居中
+      align-items: center; // 交叉轴方向上居中
 
       i {
         margin-right: 0.25em;
@@ -320,15 +565,15 @@ fieldset,hr {
         color: var(--main);
         display: block;
         padding: 0.5em 0.75em;
-    
+
         &:hover {
           background-color: var(--bg-c);
         }
-    
+
         &.level {
           display: flex;
         }
-    
+
         // &.is-active {
         //   background-color: var(--bg-e);
         //   color: var(--light-a);
@@ -336,8 +581,10 @@ fieldset,hr {
       }
     }
   }
+
   &.tags .card-content {
     font-size: 0;
+
     a {
       width: unset;
       margin: 4px;
@@ -361,6 +608,7 @@ fieldset,hr {
       }
     }
   }
+
   &.recent-posts {
     .list {
       a {
@@ -375,26 +623,27 @@ fieldset,hr {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-      
+
         &:hover {
           color: var(--theme);
           text-decoration: underline;
         }
-    
+
         &.level {
           display: flex;
         }
       }
     }
-   
+
   }
 }
 
 .footer {
   background-color: transparent; //本身不会显示任何背景颜色，而是会展现出其父元素或页面背景的颜色和图案。这在创建叠加效果、实现复杂的布局和动画时非常有用
-  backdrop-filter: blur(10px);  //它允许你对元素背后的区域（即该元素“背后”的内容）应用图形效果，比如模糊、亮度、对比度等
+  backdrop-filter: blur(10px); //它允许你对元素背后的区域（即该元素“背后”的内容）应用图形效果，比如模糊、亮度、对比度等
   padding: 1.5rem;
   position: relative;
+
   // 伪元素::before和::after虽然被添加到元素的内容区域中，但它们并不直接对应于DOM（文档对象模型）中的兄弟节点。
   // 虽然它们不是DOM中的兄弟节点，但在CSS的样式化过程中，它们确实是以类似的方式被处理的，即它们都与宿主元素相关联，并受其样式的影响（如字体、颜色等继承属性）
   // 在CSS中，当讨论元素的定位（特别是绝对定位）时，祖先元素并不包括兄弟元素作为参考点,但伪元素的祖先元素确实包括伪元素的宿主元素
@@ -407,16 +656,21 @@ fieldset,hr {
     height: 100%;
     background-color: var(--background);
   }
+
   &-container {
     display: flex;
     justify-content: flex-start; //当设置为center时，它会将项目沿着主轴居中放置，这意味着如果主轴是水平的（即flex-direction为row或row-reverse），则项目将在水平方向上居中；如果主轴是垂直的（即flex-direction为column或column-reverse），则项目将在垂直方向上居中
+
     // align-items: flex-start;  
-    & > li {
+    // 这里不用flex布局，可以直接对li使用  display: inline-block; vertical-align: middle;vertical-align: middle; 是CSS中一个用于行内元素（inline elements）和表格单元格（table-cell elements）的垂直对齐方式
+  
+   
+    &>li {
       padding: 0 5px;
       color: var(--dark-b);
       line-height: 1.6em;
 
-      & > p:not(:first-child) {
+      &>p:not(:first-child) {
         font-size: 0.9em;
       }
     }
@@ -457,9 +711,11 @@ fieldset,hr {
       }
     }
 
-    .columns, .level {
+    .columns,
+    .level {
       display: flex;
     }
+
     // &.two-column {
 
     //   .column {
@@ -479,19 +735,23 @@ fieldset,hr {
 }
 
 @media (min-width: @desktop-min-width) {
-  .card:not(.is-hidden-desktop):not(.is-hidden-all) ~ .card {
+  .card:not(.is-hidden-desktop):not(.is-hidden-all)~.card {
     margin-top: 1.4rem !important;
   }
 }
 
-html{
- 
+html {
+
   box-sizing: border-box;
   font-size: 14px;
   background-color: var(--bg-f);
 }
 
 
-body, button, input, select, textarea {
+body,
+button,
+input,
+select,
+textarea {
   font-family: "As rust Font", BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

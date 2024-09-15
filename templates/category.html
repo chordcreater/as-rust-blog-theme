@@ -8,12 +8,14 @@
     </div>
     <th:block th:unless="${isEmpty}">
       <div class="card card-content main-title">
-        <ul class="breadcrumb">
-          <li><a th:href="@{/categories}"><i class="ri-apps-line"></i>分类</a></li>
-          <li th:text="${category.spec.displayName}"></li>
-        </ul>
+        <div class="meta">
+          <ul class="breadcrumb">
+            <li><a th:href="@{/categories}"><i class="ri-apps-line"></i>分类</a></li>
+            <li th:text="${category.spec.displayName}"></li>
+          </ul>
+        </div>
       </div>
-      <th:block th:replace="~{main/article_list :: articleList (${posts.items})}" />
+      <th:block th:replace="~{main/article-list :: articleList (${posts.items})}" />
       <th:block th:replace="~{main/pagination :: pagination (${posts}, ${category.status.permalink})}" />
     </th:block>
   </th:block>
