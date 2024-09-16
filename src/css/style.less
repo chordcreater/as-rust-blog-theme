@@ -635,8 +635,10 @@ span {
           &.level{
             border-radius: 2px;
             color: var(--main);
-            padding: 0.5em 1.75em;
+            padding: 0.5em 1.25em;
             position: relative;
+            display: flex;
+            justify-content: space-between;
           }
           &.have-categories {
             &::before {
@@ -644,11 +646,11 @@ span {
               position: absolute;
               left: 0;
               top: 50%;
-              margin-top: -0.75em;
+              margin-top: -0.5em;
               width: 0px;
               height: 0px;
               border-right: none;
-              border: 10px solid transparent;
+              border: 8px solid transparent;
               border-left-color: var(--main);
               transition: transform .5s ease 0s;
             }
@@ -715,12 +717,20 @@ span {
   }
 
   &.recent-posts {
-    .list {
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      i {
+        transition: transform 0.3s;
+      }
       a {
         border-radius: 2px;
         color: var(--main);
         display: block;
         padding: 0.5em 0.75em;
+        display: flex;
+        justify-content: space-between;
         // display: inline-block;
         // position: relative;
         // color: var(--main);
@@ -728,14 +738,15 @@ span {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-
-        &:hover {
+      }
+      &:hover { 
+        a {
           color: var(--theme);
           text-decoration: underline;
         }
-
-        &.level {
-          display: flex;
+        i {
+          color: var(--theme);
+          transform: rotate(+225deg);
         }
       }
     }

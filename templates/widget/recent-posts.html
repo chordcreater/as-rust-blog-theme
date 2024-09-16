@@ -9,10 +9,9 @@
     <div th:unless="${isEmpty}" class="card-content">
         <ul class="list">
             <li class="item" th:each="post : ${posts}">
-                <a class="level is-marginless" th:href="${post.status.permalink}">
-                    <span class="level-item" th:text="${post.spec.title}"></span>
-                    <span class="level-item ri-link"></span>
-                </a>
+                <a class="level is-marginless" th:href="${post.status.permalink}" th:title="${post.spec.title}"
+                th:text="${post.spec.title}"> </a>
+                <i class="level-item ri-link"></i>
                 <!-- <a class="link" th:href="@{${post.status.permalink}}" th:title="${post.spec.title}"
                     th:text="${post.spec.title}"></a>
                 <i class="ri-link"></i> -->

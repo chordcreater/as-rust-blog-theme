@@ -630,19 +630,25 @@ span {
 .widget.categories .menu-list li a.level {
   border-radius: 2px;
   color: var(--main);
-  padding: 0.5em 1.75em;
+  padding: 0.5em 1.25em;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 .widget.categories .menu-list li a.have-categories::before {
   content: '';
   position: absolute;
   left: 0;
   top: 50%;
-  margin-top: -0.75em;
+  margin-top: -0.5em;
   width: 0px;
   height: 0px;
   border-right: none;
-  border: 10px solid transparent;
+  border: 8px solid transparent;
   border-left-color: var(--main);
   -webkit-transition: -webkit-transform 0.5s ease 0s;
   transition: -webkit-transform 0.5s ease 0s;
@@ -680,24 +686,47 @@ span {
   color: var(--theme) !important;
   border-color: var(--theme) !important;
 }
-.widget.recent-posts .list a {
+.widget.recent-posts .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.widget.recent-posts .item i {
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+.widget.recent-posts .item a {
   border-radius: 2px;
   color: var(--main);
   display: block;
   padding: 0.5em 0.75em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   max-width: 85%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.widget.recent-posts .list a:hover {
+.widget.recent-posts .item:hover a {
   color: var(--theme);
   text-decoration: underline;
 }
-.widget.recent-posts .list a.level {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.widget.recent-posts .item:hover i {
+  color: var(--theme);
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
 }
 .footer {
   background-color: transparent;
