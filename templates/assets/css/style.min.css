@@ -630,7 +630,7 @@ span {
 .widget.categories .menu-list li a.level {
   border-radius: 2px;
   color: var(--main);
-  padding: 0.5em 1.25em;
+  padding: 0.5em 1.5em;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -638,6 +638,9 @@ span {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+}
+.widget.categories .menu-list li a:hover {
+  background-color: var(--bg-c);
 }
 .widget.categories .menu-list li a.have-categories::before {
   content: '';
@@ -647,6 +650,7 @@ span {
   margin-top: -0.5em;
   width: 0px;
   height: 0px;
+  margin-left: 4px;
   border-right: none;
   border: 8px solid transparent;
   border-left-color: var(--main);

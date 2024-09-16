@@ -635,10 +635,13 @@ span {
           &.level{
             border-radius: 2px;
             color: var(--main);
-            padding: 0.5em 1.25em;
+            padding: 0.5em 1.5em;
             position: relative;
             display: flex;
             justify-content: space-between;
+          }
+          &:hover {
+            background-color: var(--bg-c);
           }
           &.have-categories {
             &::before {
@@ -649,6 +652,7 @@ span {
               margin-top: -0.5em;
               width: 0px;
               height: 0px;
+              margin-left: 4px;
               border-right: none;
               border: 8px solid transparent;
               border-left-color: var(--main);
