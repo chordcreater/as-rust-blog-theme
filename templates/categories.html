@@ -7,26 +7,26 @@
       还没有创建过分类，回<a th:href="${site.url}">主页</a>看看吧
     </div>
     <th:block th:unless="${isEmpty}">
-      <div class="card card-content">
+      <div class="card card-content categories">
         <div class="card-tab">
           <div>文章分类</div>
         </div>
         <ul class="menu-list">
-          <th:block th:replace="~{:: categories (${categories})}" />
+          <th:block th:fragment="categories (categories)">
+            <li th:each="category : ${categories}">
+              <a class="level is-marginless" th:href="${category.status.permalink}">
+                <span class="level-item" th:text="${category.spec.displayName}"></span>
+                <span class="level-item tag"
+                  th:text="${category.status.postCount == null ? 0 : category.status.postCount}"></span>
+              </a>
+              <ul th:if="${!#lists.isEmpty(category.children)}">
+                <th:block th:replace="~{:: categories (${category.children})}" />
+              </ul>
+            </li>
+          </th:block>
         </ul>
       </div>
     </th:block>
   </th:block>
-  <th:block th:fragment="categories (categories)">
-    <li th:each="category : ${categories}">
-      <a class="level is-marginless" th:href="${category.status.permalink}">
-        <span class="level-item" th:text="${category.spec.displayName}"></span>
-        <span class="level-item tag"
-          th:text="${category.status.postCount == null ? 0 : category.status.postCount}"></span>
-      </a>
-      <ul th:if="${!#lists.isEmpty(category.children)}">
-        <th:block th:replace="~{:: categories (${category.children})}" />
-      </ul>
-    </li>
-  </th:block>
+
 </th:block>

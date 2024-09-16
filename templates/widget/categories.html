@@ -1,22 +1,29 @@
-<div xmlns:th="https://www.thymeleaf.org" th:fragment="widget (sidebar)" th:class="'card widget categories ' + ${sidebar.hide}"
+<div xmlns:th="https://www.thymeleaf.org" th:fragment="widget (sidebar)"
+    th:class="'card widget categories ' + ${sidebar.hide}" 
     th:with="num = ${#strings.isEmpty(theme.config.sidebar.categories_num)? 10 : T(java.lang.Integer).parseInt(theme.config.sidebar.categories_num)},
-     categories = ${categoryFinder.list(1,num)},
-     isEmpty = ${#lists.isEmpty(categories)}">
+    categories = ${categoryFinder.listAsTree()},
+    isEmpty = ${#lists.isEmpty(categories)}">
     <div class="card-title">
         <i th:class="${#strings.defaultString(sidebar.icon, 'ri-apps-line') + ' card-title-label'}"></i><span
             th:text="${#strings.defaultString(sidebar.title, '分类')}"></span>
-        <a th:if="${categories.hasNext}" class="card-more" th:href="@{/categories}">更多<i
-                class="ri-arrow-right-double-line"></i></a>
+        <!-- <a th:if="${categories.hasNext}" class="card-more" th:href="@{/categories}">更多<i
+                class="ri-arrow-right-double-line"></i></a> -->
     </div>
     <div th:if="${isEmpty}" class="card-empty">暂无分类</div>
-    <div th:unless="${isEmpty}" class="card-content">
-        <ul class="menu-list">
+
+    <ul class="menu-list">
+        <th:block th:fragment="widgetcategories (categories)">
             <li th:each="category : ${categories}">
-                <a class="level is-marginless" th:href="${category.status.permalink}">
+                <a th:class="'level ' +  ${!#lists.isEmpty(category.children)? 'have-categories' : ''} "  th:href="${category.status.permalink}">
                     <span class="level-item" th:text="${category.spec.displayName}"></span>
-                    <span class="level-item tag" th:text="${category.status.postCount}"></span>
+                    <span class="level-item tag"
+                        th:text="${category.status.postCount == null ? 0 : category.status.postCount}"></span>
                 </a>
+                <ul th:unless="${#lists.isEmpty(category.children)}">
+                    <th:block th:replace="~{widget/categories:: widgetcategories (${category.children})}" />
+                </ul>
             </li>
-        </ul>
-    </div>
+        </th:block>
+    </ul>
+
 </div>
