@@ -1,4 +1,6 @@
 <!-- <th:block xmlns:th="https://www.thymeleaf.org">
+    <!-- 性能问题：如上所述，由于脚本会阻塞页面的渲染，因此将大量脚本放在 <head> 中可能会导致页面加载缓慢，用户体验下降。 -->
+<!-- 将脚本放在页面底部：将 <script> 标签放在 <body> 标签的底部，紧挨着关闭标签 </body>，可以确保在脚本执行之前，页面的 DOM 已经完全加载。 -->
     <script th:src="@{/assets/js/utils.min.js(mew=${theme.spec.version})}"></script>
     <script th:src="@{/assets/js/btoc.min.js(mew=${theme.spec.version})}"></script>
     <script th:if="${isFirstIndex == true && !#lists.isEmpty(theme.config.basic_style.carousel_options)}" data-pjax

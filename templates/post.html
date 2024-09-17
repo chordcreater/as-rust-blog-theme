@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-enableKatex 是否能够分享：enableShare enableCopyright enableDonate 是否允许评论：baseEnableComment
+<!-- enableKatex 是否能够分享：enableShare enableCopyright enableDonate 是否允许评论：baseEnableComment -->
 <th:block xmlns:th="https://www.thymeleaf.org"
   th:insert="~{layout/layout :: layout (title = ${post.spec.title + ' - ' + site.title}, canonical = ${post.status.permalink}, content = ~{main/article :: article (${post}, 'Post')}, isPost = true)}"
   th:with="enableKatex = ${!#strings.isEmpty(post.metadata.annotations.get('enable_katex'))? post.metadata.annotations.get('enable_katex') : theme.config.post.enable_katex},

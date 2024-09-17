@@ -20,6 +20,7 @@
       display: flex;
       align-items: center;
     }
+
     .navbar-item {
       display: flex;
       align-items: center;
@@ -29,6 +30,7 @@
       color: #4a4a4a;
       line-height: 1.5;
     }
+
     .navbar-nav {
       display: flex;
       align-items: center;
@@ -81,17 +83,18 @@
             transform: scaleX(1);
           }
 
-          &:hover::after {
-            opacity: 1;
-            transform: scaleX(1);
-          }
+          // &:hover::after {
+          //   opacity: 1;
+          //   transform: scaleX(1);
+          // }
         }
       }
     }
+
     .item-dropdown {
       margin-right: 15px;
       position: relative;
-   
+
       &-link {
         display: flex;
         align-items: center;
@@ -101,7 +104,7 @@
         //   font-size: 15px;
         //   padding-left: 8px;
         //   padding-right: 3px;
-      
+
         //   transition: color 0.35s;
         //   white-space: nowrap;
         //   color: var(--main);
@@ -111,6 +114,7 @@
           margin-left: -10px;
         }
       }
+
       &:hover {
         .item-dropdown-menu {
           visibility: visible;
@@ -118,8 +122,9 @@
           transform: translateX(0) perspective(600px) rotateY(0);
           // transform: translateX(-50%) perspective(600px) rotateX(0);
         }
-      
+
       }
+
       &-menu {
         visibility: hidden;
         min-width: 90px;
@@ -128,7 +133,7 @@
         top: 60px;
         // left: 50%;
         left: -20px;
-        z-index: 5;  //在同一堆叠上下文中，任何具有较低 z-index 值的定位元素都将被该元素覆盖
+        z-index: 5; //在同一堆叠上下文中，任何具有较低 z-index 值的定位元素都将被该元素覆盖
         text-align: center;
         opacity: 0;
         border-top: 3px solid var(--theme);
@@ -139,6 +144,7 @@
         // 加上特效，使菜单不会在鼠标移动时显示菜单更加平缓
         transform: translateX(-50%) perspective(600px) rotateX(-45deg);
         transition: opacity 0.35s, visibility 0.35s, transform 0.35s;
+
         &::before {
           content: "";
           position: absolute;
@@ -151,12 +157,14 @@
           border-right: 7px solid transparent;
           border-bottom: 7px solid var(--theme);
         }
+
         .item-sub-li {
           position: relative;
-          display: flex;  
+          display: flex;
           align-items: center;
           justify-content: center;
           height: 34px;
+
           .item-sub {
             visibility: hidden;
             min-width: 90px;
@@ -172,6 +180,7 @@
             border-radius: 0 var(--radius-inner) var(--radius-inner) 0;
             transform: translateX(-20%) perspective(600px) rotateY(-45deg);
             transition: opacity 0.35s, visibility 0.35s, transform 0.35s;
+
             &::before {
               position: absolute;
               top: 10px;
@@ -183,6 +192,7 @@
               border: 7px solid transparent;
               border-right-color: var(--theme);
             }
+
             &::after {
               position: absolute;
               top: 0;
@@ -193,6 +203,7 @@
               background: var(--theme);
             }
           }
+
           // 最好使用js来控制菜单的显示。比如通过加上active类，.active类提供了一种方式来保持元素的某种状态，
           // 而不仅仅是当鼠标悬停时才显示这种状态。这对于创建可交互的UI元素（如下拉菜单、选项卡等）特别有用，
           //因为用户可能需要看到元素的状态在点击后保持变化。
@@ -203,8 +214,13 @@
               transform: translateX(0) perspective(600px) rotateY(0);
             }
           }
-        }  
+        }
       }
+    }
+    &.solid {
+      backdrop-filter: unset;
+      box-shadow: unset;
+      border-bottom: 1px solid var(--light-b);
     }
   }
 
@@ -263,6 +279,7 @@ hr {
   padding-right: .75em;
   white-space: nowrap;
 }
+
 span {
   font-style: inherit;
   font-weight: inherit;
@@ -346,6 +363,7 @@ span {
 
       a {
         color: inherit;
+
         &:hover {
           color: var(--theme);
           text-decoration: underline;
@@ -355,10 +373,12 @@ span {
 
     &-content {
       padding: 0.6rem 1rem 1rem 1rem;
+
       .card-tab {
         height: 52px;
         border-bottom: 1px solid var(--light-b);
         margin-bottom: 15px;
+
         div {
           position: absolute;
           top: 15px;
@@ -373,7 +393,7 @@ span {
           border-radius: 2px 2px 2px 0;
           box-shadow: 2px 5px 10px rgba(49, 58, 70, .15);
           user-select: none; // 是CSS中一个用于控制用户是否可以选择文本的属性。当这个属性被设置为none时，它将阻止用户选择页面上的文本内容
-          
+
           &::before {
             content: '';
             position: absolute;
@@ -386,35 +406,41 @@ span {
           }
         }
       }
+
       &.categories {
-        .menu-list  {
+        .menu-list {
           a.level {
             display: flex;
             justify-content: space-between;
             border-radius: 2px;
             color: var(--main);
             padding: .5em .75em;
+
             &:hover {
               background-color: var(--bg-c);
             }
+
             // span {
             //   align-items: center;
             // }
           }
+
           li ul {
             margin: .5em 0 .75em .75em;
             padding-left: .5em;
             border-left: 1px solid var(--light-c)
           }
-         
+
+        }
       }
-      }
+
       &.tags {
         .tags-field {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
           font-size: 1.3em;
+
           span {
             // display: inline-flex;
             // justify-content: center;
@@ -442,20 +468,25 @@ span {
           text-align: center;
           line-height: 2em;
         }
+
         .timeline {
           border-left: 1px solid var(--light-b);
           margin-left: 16px;
           padding-left: 24px;
           padding-top: 16px;
+
           .media {
             position: relative;
+
             // display: flex;
             &:not(:last-child) {
               margin-bottom: 21px
             }
+
             &:first-child::before {
               top: 4px;
             }
+
             &::before {
               content: '';
               display: block;
@@ -467,39 +498,43 @@ span {
               background: var(--light-d);
               border-radius: 50%;
             }
+
             .media-content {
               time {
                 font-size: .85em;
                 display: block;
                 color: var(--dark-b);
               }
+
               .title {
                 color: var(--dark-c);
                 font-size: 1.1em !important;
               }
+
               p a {
                 font-size: .9em;
                 color: var(--dark-e);
               }
+
               .has-link-grey {
                 line-height: 1.85rem;
-                &:hover{
+
+                &:hover {
                   color: var(--theme);
                   text-decoration: underline;
                   // transition: all .35s ease-in-out;
                 }
-               
+
               }
             }
           }
         }
       }
     }
-
-  
   }
 
   .column-main {
+
     // 文章列表块中的简介内容之前的统计信息或分类信息等：如时间，访问量等
     .meta {
       display: flex;
@@ -509,6 +544,7 @@ span {
       color: var(--dark-b);
       font-size: .8rem;
       overflow-x: auto; // 如果内容在水平方向上超出了元素的宽度，浏览器会自动提供一个滚动条
+
       // 面包屑
       .breadcrumb {
         display: flex;
@@ -528,17 +564,41 @@ span {
 
     }
 
-    .main-content {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-indent: 1.5em; // 用来设置文本首行缩进的
-      line-height: 1.5em;
-      word-break: break-word;
-      color: var(--main);
-      font-size: 1.1rem;
-      font-weight: 300;
+    // .main-content {
+    //   overflow: hidden;
+    //   text-overflow: ellipsis;
+    //   text-indent: 1.5em; // 用来设置文本首行缩进的
+    //   line-height: 1.5em;
+    //   word-break: break-word;
+    //   color: var(--main);
+    //   font-size: 1.1rem;
+    //   font-weight: 300;
+    // }
+  }
+
+  .post-navigation {
+    padding-top: 1rem;
+    justify-content: space-around;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    a {
+        flex-shrink: 1;
+        color: var(--main);
+        &:last-child {
+          text-align: right;
+        }
+
+        &:hover {
+          color: var(--theme)
+        }
+
+        i {
+          font-size: 1.3em;
+          margin: 0 0.5rem;
+        }
     }
   }
+  
 }
 
 
@@ -631,8 +691,9 @@ span {
           border-left: 1px solid var(--light-c);
           display: none;
         }
+
         a {
-          &.level{
+          &.level {
             border-radius: 2px;
             color: var(--main);
             padding: 0.5em 1.5em;
@@ -640,9 +701,11 @@ span {
             display: flex;
             justify-content: space-between;
           }
+
           &:hover {
             background-color: var(--bg-c);
           }
+
           &.have-categories {
             &::before {
               content: '';
@@ -658,22 +721,24 @@ span {
               border-left-color: var(--main);
               transition: transform .5s ease 0s;
             }
+
             &:hover {
-              &::before{
+              &::before {
                 transform: rotate(90deg);
               }
-              + ul {
+
+              +ul {
                 display: block;
               }
             }
           }
         }
       }
-      
-      
-  
+
+
+
     }
-   
+
     // .menu-list {
     //   a {
     //     border-radius: 2px;
@@ -683,7 +748,7 @@ span {
 
     //     &:hover {
     //       background-color: var(--bg-c);
-            //  color: var(--light-a);
+    //  color: var(--light-a);
     //     }
 
     //     &.level {
@@ -725,9 +790,11 @@ span {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       i {
         transition: transform 0.3s;
       }
+
       a {
         border-radius: 2px;
         color: var(--main);
@@ -743,11 +810,13 @@ span {
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-      &:hover { 
+
+      &:hover {
         a {
           color: var(--theme);
           text-decoration: underline;
         }
+
         i {
           color: var(--theme);
           transform: rotate(+225deg);
@@ -783,8 +852,8 @@ span {
 
     // align-items: flex-start;  
     // 这里不用flex布局，可以直接对li使用  display: inline-block; vertical-align: middle;vertical-align: middle; 是CSS中一个用于行内元素（inline elements）和表格单元格（table-cell elements）的垂直对齐方式
-  
-   
+
+
     &>li {
       padding: 0 5px;
       color: var(--dark-b);

@@ -16,6 +16,7 @@
   <meta property="og:locale" content="zh">
   <meta property="og:image" th:content="${site.logo}">
 
+  <!-- css模块 -->
   <link rel="preload stylesheet" as="style" th:href="@{/assets/css/theme.min.css(mew=${theme.spec.version})}">
   <link rel="preload stylesheet" as="style" th:href="@{/assets/lib/remixicon@3.5.0/remixicon.min.css}">
   <link rel="preload stylesheet" as="style" th:href="@{/assets/css/style.min.css(mew=${theme.spec.version})}">
@@ -23,23 +24,38 @@
   <th:block th:if="${isPost}">
     <!-- <link data-pjax rel="preload stylesheet" as="style"
           th:href="@{'/assets/lib/highlightjs@11.5.1/styles/' + ${theme.config.post.code_pretty} + '.min.css'}"/> -->
-    <link data-pjax rel="preload stylesheet" as="style" th:href="@{/assets/css/post.min.css(mew=${theme.spec.version})}"/>
+    <link data-pjax rel="preload stylesheet" as="style"
+      th:href="@{/assets/css/post.min.css(mew=${theme.spec.version})}" />
     <!-- <link th:if="${enableKatex}" data-pjax rel="preload stylesheet" as="style" th:href="@{/assets/lib/katex@0.12.0/katex.min.css}"/> -->
     <!-- <link th:if="${enableShare}" data-pjax rel="preload stylesheet" as="style" th:href="@{/assets/css/dshare.min.css(mew=${theme.spec.version})}"> -->
   </th:block>
 
   <!-- <link rel="stylesheet" th:href="@{/assets/lib/qmsg/qmsg.min.css}"> -->
   <!-- <th:block th:replace="~{common/config}"/> -->
-  <!-- <script th:src="@{/assets/lib/jquery@3.5.1/jquery.min.js}"></script> -->
+  
 
   <style th:inline="css"
-  th:with="fontSrc = ${theme.config.basic_style.web_font != 'default' ? theme.config.basic_style.web_font == 'custom' ? theme.config.basic_style.custom_font : #theme.assets('/font/' + theme.config.basic_style.web_font) : ''},
+    th:with="fontSrc = ${theme.config.basic_style.web_font != 'default' ? theme.config.basic_style.web_font == 'custom' ? theme.config.basic_style.custom_font : #theme.assets('/font/' + theme.config.basic_style.web_font) : ''},
   fontFormat = ${fontSrc.endsWith('.ttf') ? 'truetype' : fontSrc.endsWith('.eot') ? 'embedded-opentype' : fontSrc.replaceAll('^.*\.([\w]+)$', '$1')}">
     @font-face {
-        font-family: "As rust Font";
-        font-display: swap;
-        font-weight: 400;
-        src: url("' + fontSrc + '")' + (#strings.isEmpty(fontFormat)? '' : ' format("' + fontFormat + '")') + ';
+      font-family: "As rust Font";
+      font-display: swap;
+      font-weight: 400;
+      src: url("' + fontSrc + '")' + (#strings.isEmpty(fontFormat)? ' ' : ' format("' + fontFormat + '")') + ';
     }
   </style>
+
+  <!-- js模块：注意js加载顺序是从上到下，jquery要放在common之前-->
+  <script th:src="@{/assets/lib/jquery@3.5.1/jquery.min.js}"></script>
+  <script th:src="@{/assets/js/common.min.js(mew=${theme.spec.version})}"></script>
+  
+  <th:block th:if="${isPost}">
+    <!-- <script th:if="${isPost}" data-pjax th:src="@{/assets/lib/highlightjs@11.5.1/highlight.min.js}"></script>
+    <script th:if="${isPost}" data-pjax th:src="@{/assets/lib/clipboard@2.0.10/clipboard.min.js}"></script>
+    <script th:if="${enableKatex}" data-pjax th:src="@{/assets/lib/katex@0.12.0/katex.min.js}"></script>
+    <script th:if="${enableShare}" data-pjax th:src="@{/assets/js/dshare.min.js(mew=${theme.spec.version})}"></script> -->
+    <script th:if="${isPost}" data-pjax th:src="@{/assets/js/post.min.js(mew=${theme.spec.version})}"></script>
+    <!-- <script th:if="${isJournals}" data-pjax th:src="@{/assets/js/journals.min.js(mew=${theme.spec.version})}"></script> -->
+  </th:block>
+
 </head>

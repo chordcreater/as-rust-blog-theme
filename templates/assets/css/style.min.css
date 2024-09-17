@@ -98,11 +98,6 @@
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
-.navbar-above .navbar-nav .item.current:hover::after {
-  opacity: 1;
-  -webkit-transform: scaleX(1);
-  transform: scaleX(1);
-}
 .navbar-above .item-dropdown {
   margin-right: 15px;
   position: relative;
@@ -224,6 +219,13 @@
   opacity: 1;
   -webkit-transform: translateX(0) perspective(600px) rotateY(0);
   transform: translateX(0) perspective(600px) rotateY(0);
+}
+.navbar-above.solid {
+  -webkit-backdrop-filter: unset;
+  backdrop-filter: unset;
+  -webkit-box-shadow: unset;
+  box-shadow: unset;
+  border-bottom: 1px solid var(--light-b);
 }
 a {
   color: var(--theme);
@@ -535,15 +537,27 @@ span {
   color: var(--light-d);
   padding: 0 5px;
 }
-.section .column-main .main-content {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-indent: 1.5em;
-  line-height: 1.5em;
-  word-break: break-word;
+.section .post-navigation {
+  padding-top: 1rem;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.section .post-navigation a {
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
   color: var(--main);
-  font-size: 1.1rem;
-  font-weight: 300;
+}
+.section .post-navigation a:last-child {
+  text-align: right;
+}
+.section .post-navigation a:hover {
+  color: var(--theme);
+}
+.section .post-navigation a i {
+  font-size: 1.3em;
+  margin: 0 0.5rem;
 }
 .widget.profile .level {
   display: -webkit-box;

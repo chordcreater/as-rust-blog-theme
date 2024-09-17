@@ -60,22 +60,22 @@
                 th:utext="${post.content.content}">
             </div>
             <!-- 捐赠与点赞 -->
-            <!-- <th:block th:replace="~{main/admire}"/> -->
+            <th:block th:replace="~{main/admire}"/>
             <!-- 本文tag -->
-            <div th:if="${type == 'Post' && !#lists.isEmpty(post.tags)}" class="article-operation">
+            <div th:if="${type == 'Post' && !#lists.isEmpty(post.tags)}" class="article-tags">
                 <div class="level-item">
                     <a th:each=" tag : ${post.tags}" th:href="${tag.status.permalink}"
                         th:text="${tag.spec.displayName}"></a>
                 </div>
             </div>
             <!-- 许可与分享 -->
-            <!-- <th:bolck th:if="${enableCopyright || enableShare}">
+            <th:bolck th:if="${enableCopyright || enableShare}">
                 <hr/>
                 <th:block th:if="${enableCopyright}">
                     <th:block th:replace="~{main/copyright}"/>
                 </th:block>
-                <div th:if="${enableShare}" class="dshare"></div>
-            </th:bolck> -->
+                <!-- <div th:if="${enableShare}" class="dshare"></div> -->
+            </th:bolck>
         </div>
     </div>
 
