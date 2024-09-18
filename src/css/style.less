@@ -684,14 +684,18 @@ span {
 
   &.categories {
     .menu-list {
+      max-height: 500px;
+      overflow-y: auto; /* 或 scroll，根据需要选择 */ 
       li {
         ul {
           margin: 0.5em 0 0.75em 0.75em;
           padding-left: 0.5em;
           border-left: 1px solid var(--light-c);
           display: none;
-        }
-
+          &.expand {
+            display: block;
+          }
+        }    
         a {
           &.level {
             border-radius: 2px;
@@ -701,9 +705,12 @@ span {
             display: flex;
             justify-content: space-between;
           }
-
-          &:hover {
-            background-color: var(--bg-c);
+          
+          &.arrow-dropdown::before {
+            transform: rotate(90deg);
+          }
+          &:hover,&.current {
+            background-color: var(--theme);
           }
 
           &.have-categories {
@@ -721,22 +728,9 @@ span {
               border-left-color: var(--main);
               transition: transform .5s ease 0s;
             }
-
-            &:hover {
-              &::before {
-                transform: rotate(90deg);
-              }
-
-              +ul {
-                display: block;
-              }
-            }
           }
         }
       }
-
-
-
     }
 
     // .menu-list {

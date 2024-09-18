@@ -635,11 +635,19 @@ span {
   margin-bottom: 0;
   font-weight: 400 !important;
 }
+.widget.categories .menu-list {
+  max-height: 500px;
+  overflow-y: auto;
+  /* 或 scroll，根据需要选择 */
+}
 .widget.categories .menu-list li ul {
   margin: 0.5em 0 0.75em 0.75em;
   padding-left: 0.5em;
   border-left: 1px solid var(--light-c);
   display: none;
+}
+.widget.categories .menu-list li ul.expand {
+  display: block;
 }
 .widget.categories .menu-list li a.level {
   border-radius: 2px;
@@ -653,8 +661,13 @@ span {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
-.widget.categories .menu-list li a:hover {
-  background-color: var(--bg-c);
+.widget.categories .menu-list li a.arrow-dropdown::before {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.widget.categories .menu-list li a:hover,
+.widget.categories .menu-list li a.current {
+  background-color: var(--theme);
 }
 .widget.categories .menu-list li a.have-categories::before {
   content: '';
@@ -672,13 +685,6 @@ span {
   transition: -webkit-transform 0.5s ease 0s;
   transition: transform 0.5s ease 0s;
   transition: transform 0.5s ease 0s, -webkit-transform 0.5s ease 0s;
-}
-.widget.categories .menu-list li a.have-categories:hover::before {
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-.widget.categories .menu-list li a.have-categories:hover + ul {
-  display: block;
 }
 .widget.tags .card-content {
   font-size: 0;
