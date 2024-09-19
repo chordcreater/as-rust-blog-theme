@@ -1,10 +1,10 @@
 
-function expandCategoryTree (tree) {
-  for (var i = 0; i < tree.length ; i++) {  
+function expandCategoryTree(tree) {
+  for (var i = 0; i < tree.length; i++) {
     // console.log(tree [i])
-    var $li = $(tree [i])
+    var $li = $(tree[i])
     // 获取a元素
-    var $category =$li.children().eq(0)
+    var $category = $li.children().eq(0)
     var cur_href = $category.attr('href')
     var is_href = false
     const { href, pathname } = location
@@ -17,23 +17,23 @@ function expandCategoryTree (tree) {
     // 是否存在ul
     var $ulElements = $li.children('ul')
     // console.log('$ulElements:',$ulElements)
-    if(is_href) {
-      if($ulElements.length > 0) {
+    if (is_href) {
+      if ($ulElements.length > 0) {
         // 分类找到且存在子菜单则展开
-        console.log('cur_href,cur----ulElements:',cur_href,$ulElements)
+        console.log('cur_href,cur----ulElements:', cur_href, $ulElements)
         $category.addClass('arrow-dropdown')
         $ulElements.addClass('expand')
       }
-      console.log('cur_href,cur----category:',cur_href,$category)
+      console.log('cur_href,cur----category:', cur_href, $category)
       // 选择当前分类
       $category.addClass('current')
       return true
-    }else if($ulElements.length > 0) {
+    } else if ($ulElements.length > 0) {
       // 分类未找到且存在ul则继续递归找
-      if(expandCategoryTree($ulElements.children())) {
+      if (expandCategoryTree($ulElements.children())) {
         $ulElements.addClass('expand')
         $category.addClass('arrow-dropdown')
-        console.log('未找到分类：cur_href,cur----$category:',cur_href,$category)
+        console.log('未找到分类：cur_href,cur----$category:', cur_href, $category)
         return true
       }
     }
@@ -42,6 +42,29 @@ function expandCategoryTree (tree) {
 }
 
 const commonContext = {
+
+  /* 初始化目录和公告模块 */
+  initTocAndNotice() {
+    const { pathname } = location
+    window.tocPjax && window.tocPjax()
+    let hideToc = $('.widget.toc .card-content ul').length === 0
+
+
+    let hideNotice = (themeConfig.notice_show_mode === 'toc' && !hideToc)
+      || (themeConfig.notice_show_mode === 'index' && pathname !== '/')
+    console.log('themeConfig.notice_show_mode,hideToc,hideNotice,pathname:', themeConfig.notice_show_mode, hideToc,hideNotice,pathname)
+    if (hideToc) {
+      $('.widget.toc,.action-toc').addClass('is-hidden-all')
+    } else {
+      $('.widget.toc,.action-toc').removeClass('is-hidden-all')
+    }
+    if (hideNotice) {
+      $('.widget.notice').addClass('is-hidden-all')
+    } else {
+      console.log('removeClass notice:',  $('.widget.notice'))
+      $('.widget.notice').removeClass('is-hidden-all')
+    }
+  },
   // testaaa() {
   //   console.log('Hello, this is a debug log!')
   // },
@@ -51,7 +74,7 @@ const commonContext = {
     $('.main-content img:not(.not-gallery)').each(function () {
       if ($(this).parents('[data-fancybox],mew-photos').length === 0) {
         $(this).wrap(`<div class="0"><div data-fancybox="gallery" ${this.alt ? `data-caption="${this.alt}"` : ''} href="${$(this).attr('src')
-        }"></div>${(this.alt && DreamConfig.show_img_name) ? `<p>${this.alt}</p>` : ''}</div>`)
+        }"></div>${(this.alt && themeConfig.show_img_name) ? `<p>${this.alt}</p>` : ''}</div>`)
       }
     })
   },
@@ -125,7 +148,7 @@ const commonContext = {
 
 !(function () {
   // 若没有将common放到body最后，需要再html加载完后执行菜单高亮才行
-  const loads = ['initCarousel', 'sparkInput', 'websiteTime','initNavbar','initCategoryTree']
+  const loads = ['initCarousel', 'sparkInput', 'websiteTime', 'initNavbar', 'initCategoryTree','initTocAndNotice']
   const omits = ['initEffects', 'loadMaintain', 'showThemeVersion']
 
   Object.keys(commonContext).forEach(

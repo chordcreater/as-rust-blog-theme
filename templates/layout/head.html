@@ -32,21 +32,13 @@
 
   <!-- <link rel="stylesheet" th:href="@{/assets/lib/qmsg/qmsg.min.css}"> -->
   <!-- <th:block th:replace="~{common/config}"/> -->
-  
+  <th:block th:replace="~{layout/style}"/>
 
-  <style th:inline="css"
-    th:with="fontSrc = ${theme.config.basic_style.web_font != 'default' ? theme.config.basic_style.web_font == 'custom' ? theme.config.basic_style.custom_font : #theme.assets('/font/' + theme.config.basic_style.web_font) : ''},
-  fontFormat = ${fontSrc.endsWith('.ttf') ? 'truetype' : fontSrc.endsWith('.eot') ? 'embedded-opentype' : fontSrc.replaceAll('^.*\.([\w]+)$', '$1')}">
-    @font-face {
-      font-family: "As rust Font";
-      font-display: swap;
-      font-weight: 400;
-      src: url("' + fontSrc + '")' + (#strings.isEmpty(fontFormat)? ' ' : ' format("' + fontFormat + '")') + ';
-    }
-  </style>
+
 
   <!-- js模块：注意js加载顺序是从上到下，jquery要放在common之前-->
   <script th:src="@{/assets/lib/jquery@3.5.1/jquery.min.js}"></script>
+  <script th:src="@{/assets/js/btoc.min.js(mew=${theme.spec.version})}"></script>
   <script th:src="@{/assets/js/common.min.js(mew=${theme.spec.version})}"></script>
   
   <th:block th:if="${isPost}">

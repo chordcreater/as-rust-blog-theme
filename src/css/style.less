@@ -10,8 +10,12 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+
 .navbar {
   &-above {
+    position: fixed;
+    top: 0;
+    z-index: 6;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1); // 向下和四周的阴影
     background-color: var(--background);
     width: 100%;
@@ -286,6 +290,7 @@ span {
 }
 
 .section {
+  padding: 6rem .75rem 3rem;
   .columns {
     .column {
       padding: 0.75rem;
@@ -303,7 +308,21 @@ span {
       }
     }
   }
+  .column-left, .column-right {
+    transition: all 0.5s;
 
+    &.top-sticky {
+      align-self: flex-start;
+      position: sticky;
+      top: 5rem;
+    }
+
+    &.bottom-sticky {
+      align-self: flex-end;
+      position: sticky;
+      bottom: 1rem;
+    }
+  }
   .card {
     color: var(--dark-c);
     max-width: 100%;
@@ -407,17 +426,20 @@ span {
         }
       }
 
-      &.categories {
+      &.toc-content {
         .menu-list {
-          a.level {
-            display: flex;
-            justify-content: space-between;
+          a {
+            // display: flex;
+            // justify-content: space-between;
+            // border-radius: 2px;
+            // color: var(--main);
+            // padding: .5em .75em;
             border-radius: 2px;
             color: var(--main);
+            display: block;
             padding: .5em .75em;
-
             &:hover {
-              background-color: var(--bg-c);
+              background-color: var(--dark-b);
             }
 
             // span {
@@ -601,7 +623,9 @@ span {
   
 }
 
-
+.is-hidden-all {
+  display: none !important;
+}
 .widget {
 
   // css选择器中.a.b和.a空格.b的区别，无空格为组合类选择器，有空格为后代选择器
@@ -699,7 +723,7 @@ span {
           &.level {
             border-radius: 2px;
             color: var(--main);
-            padding: 0.5em 1.5em;
+            padding: 0.5em 1.8em;
             position: relative;
             display: flex;
             justify-content: space-between;
@@ -936,4 +960,33 @@ input,
 select,
 textarea {
   font-family: "As rust Font", BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+
+  &:before {
+    content: '';
+    position: fixed;
+    // 越小越下边
+    z-index: -1;
+    // 全屏覆盖：通过top: 0; right: 0; bottom: 0; left: 0;，伪元素被设置为覆盖整个视口区域。
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: opacity 1s;
+    // 尝试将背景图像扩展（或缩小）到足以完全覆盖元素的整个区域，同时保持图像的宽高比不变。如果图像的宽高比与元素的宽高比不匹配，那么图像的某些部分可能会被裁剪掉，以确保图像完全覆盖元素区域，不留空白
+    background-size: cover !important;
+    background: url("/upload/0.jpg") center 0 no-repeat;
+  }
+  // &:after {
+  //   content: "";
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   z-index: -10;
+  //   pointer-events: none
+  // }
 }

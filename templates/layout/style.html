@@ -1,0 +1,23 @@
+<th:block xmlns:th="https://www.thymeleaf.org">
+  <style th:inline="css"
+    th:with="fontSrc = ${theme.config.basic_style.web_font != 'default' ? theme.config.basic_style.web_font == 'custom' ? theme.config.basic_style.custom_font : #theme.assets('/font/' + theme.config.basic_style.web_font) : ''},
+    fontFormat = ${fontSrc.endsWith('.ttf') ? 'truetype' : fontSrc.endsWith('.eot') ? 'embedded-opentype' : fontSrc.replaceAll('^.*\.([\w]+)$', '$1')}">
+    [(${#strings.isEmpty(fontSrc) ? '' : '
+    @font-face {
+        font-family: "As rust Font";
+        font-display: swap;
+        font-weight: 400;
+        src: url("' + fontSrc + '")' + (#strings.isEmpty(fontFormat)? ' ' : ' format("' + fontFormat + '")') + ';
+    }'})]
+
+    body:before {
+      [(${(theme.config.basic_style.enable_image_bg && theme.config.basic_style.theme_style !='clean' && !#strings.isEmpty(theme.config.basic_style.background_pc)) ? 'background: url("' + theme.config.basic_style.background_pc + '") center 0 no-repeat;' : ''})]
+    }
+  </style>
+  <script th:inline="javascript">
+    /** 主题配置 */
+    const themeConfig = {};
+    themeConfig["notice_show_mode"] = '[(${theme.config.sidebar.notice_show_mode})]';
+    [(${theme.config.post.show_img_name?'themeConfig["show_img_name"] = true;': ''})]
+  </script>
+</th:block>
