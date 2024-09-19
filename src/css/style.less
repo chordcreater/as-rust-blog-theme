@@ -426,6 +426,31 @@ span {
         }
       }
 
+      &.categories {
+        .menu-list {
+          a {
+            display: flex;
+            justify-content: space-between;
+            border-radius: 2px;
+            color: var(--main);
+            padding: .5em .75em;
+            &:hover {
+              background-color: var(--dark-b);
+            }
+
+            span {
+              align-items: center;
+            }
+          }
+
+          li ul {
+            margin: .5em 0 .75em .75em;
+            padding-left: .5em;
+            border-left: 1px solid var(--light-c)
+          }
+
+        }
+      }
       &.toc-content {
         .menu-list {
           a {

@@ -425,6 +425,30 @@ span {
   border-width: 10px;
   border-color: transparent var(--theme) transparent transparent;
 }
+.section .card-content.categories .menu-list a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-radius: 2px;
+  color: var(--main);
+  padding: 0.5em 0.75em;
+}
+.section .card-content.categories .menu-list a:hover {
+  background-color: var(--dark-b);
+}
+.section .card-content.categories .menu-list a span {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.section .card-content.categories .menu-list li ul {
+  margin: 0.5em 0 0.75em 0.75em;
+  padding-left: 0.5em;
+  border-left: 1px solid var(--light-c);
+}
 .section .card-content.toc-content .menu-list a {
   border-radius: 2px;
   color: var(--main);
@@ -870,4 +894,5 @@ body:before {
   -webkit-transition: opacity 1s;
   transition: opacity 1s;
   background-size: cover !important;
+  background: url("/upload/0.jpg") center 0 no-repeat;
 }
