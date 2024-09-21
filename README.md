@@ -22,7 +22,7 @@
 1.x	2.0.0+	2.3.0
 
 四、安装 & 更新
-进入主题 Release 界面：https://github.com/chordcreater/as-rust-blog-theme/releases 下载主题压缩包 halo-theme-dream.zip 压缩包文件；
+进入主题 Release 界面：https://github.com/chordcreater/as-rust-blog-theme/releases 下载主题压缩包 AS-RUST-BLOG-THEME1.0.zip 压缩包文件；
 进入博客后台管理 主题->主题管理->安装主题，选择下载的 halo-theme-dream.zip 安装包进行上传；
 等待安装完成；
 更新主题时同样前往主题 Release 界面下载主题安装包，然后通过 主题->主题管理->Dream->升级 方法上传安装包进行更新。
