@@ -16,14 +16,17 @@
 欢迎参与主题开发的一些问题探讨
 
 欢迎关注微信公众号，主题版本更新消息与要点说明将在公众号发布。
+
 三、版本适配关系
 主题版本	适配Halo版本	测试用Halo版本
 1.x	2.0.0+	2.3.0
+
 四、安装 & 更新
-进入主题 Release 界面：https://github.com/nineya/halo-theme-dream2.0/releases 下载主题压缩包 halo-theme-dream.zip 压缩包文件；
+进入主题 Release 界面：https://github.com/chordcreater/as-rust-blog-theme/releases 下载主题压缩包 halo-theme-dream.zip 压缩包文件；
 进入博客后台管理 主题->主题管理->安装主题，选择下载的 halo-theme-dream.zip 安装包进行上传；
 等待安装完成；
 更新主题时同样前往主题 Release 界面下载主题安装包，然后通过 主题->主题管理->Dream->升级 方法上传安装包进行更新。
+
 五、参与主题开发
 推荐使用 IDEA 进行主题开发，能够比较好的支持 FreeMarker。
 
