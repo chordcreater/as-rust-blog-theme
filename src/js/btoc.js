@@ -136,6 +136,9 @@ function register($toc) {
       }
     }
   }
+  //IntersectionObserver 被初始化为观察交叉状态的变化，并且设置了一个阈值（threshold）为 0。
+  // 这意味着当目标元素（例如，文章的一个章节标题）与视口（或指定的根元素）的交叉比例达到或超过 0（即只要元素的一小部分进入视口）时，
+  // 就会触发回调函数
   const observer = new IntersectionObserver(callback, { threshold: 0 })
 
   for (const $heading of $headings) {

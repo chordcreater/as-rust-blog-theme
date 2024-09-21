@@ -458,6 +458,10 @@ span {
 .section .card-content.toc-content .menu-list a:hover {
   background-color: var(--dark-b);
 }
+.section .card-content.toc-content .menu-list a.is-active {
+  background-color: var(--bg-e);
+  color: var(--light-a);
+}
 .section .card-content.toc-content .menu-list li ul {
   margin: 0.5em 0 0.75em 0.75em;
   padding-left: 0.5em;
