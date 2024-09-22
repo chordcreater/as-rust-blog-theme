@@ -17,7 +17,9 @@
   <script th:inline="javascript">
     /** 主题配置 */
     const themeConfig = {};
+    [(${!#strings.isEmpty(theme.config.post.code_fold_line)?'themeConfig["code_fold_line"] = "' + theme.config.post.code_fold_line + '";': ''})]
     themeConfig["notice_show_mode"] = '[(${theme.config.sidebar.notice_show_mode})]';
     [(${theme.config.post.show_img_name?'themeConfig["show_img_name"] = true;': ''})]
+    [(${(!#strings.isEmpty(theme.config.post.img_fold_height) && #numbers.sequence(theme.config.post.img_fold_height,theme.config.post.img_fold_height)[0] >= 400)?'themeConfig["img_fold_height"] = ' + theme.config.post.img_fold_height + ';': ''})]
   </script>
 </th:block>

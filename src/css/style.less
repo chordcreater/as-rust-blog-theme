@@ -355,24 +355,24 @@ span {
         // 也可以用justify-content: space-between;来实现
         flex: 1;
       }
+      // 分类，更多
+      // .card-more {
+      //   font-size: 0.9em;
+      //   font-weight: 400;
+      //   color: var(--dark-b);
 
-      .card-more {
-        font-size: 0.9em;
-        font-weight: 400;
-        color: var(--dark-b);
+      //   i {
+      //     font-size: 1.1em;
+      //   }
 
-        i {
-          font-size: 1.1em;
-        }
+      //   &:hover {
+      //     color: var(--theme);
 
-        &:hover {
-          color: var(--theme);
-
-          i {
-            color: var(--theme);
-          }
-        }
-      }
+      //     i {
+      //       color: var(--theme);
+      //     }
+      //   }
+      // }
     }
 
     .title {
@@ -614,18 +614,25 @@ span {
 
     }
 
-    // .main-content {
-    //   overflow: hidden;
-    //   text-overflow: ellipsis;
-    //   text-indent: 1.5em; // 用来设置文本首行缩进的
-    //   line-height: 1.5em;
-    //   word-break: break-word;
-    //   color: var(--main);
-    //   font-size: 1.1rem;
-    //   font-weight: 300;
-    // }
+    .main-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-indent: 1.5em; // 用来设置文本首行缩进的
+      line-height: 1.5em;
+      word-break: break-word;
+      color: var(--main);
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+     // 文章分页
+    .card-transparent {
+      box-shadow: none !important;
+      background: 0 0 !important;
+      backdrop-filter: none !important;
+      border: 0 !important;
+    }
   }
-
+  // 文章前一篇，后一篇导航
   .post-navigation {
     padding-top: 1rem;
     justify-content: space-around;
@@ -647,8 +654,65 @@ span {
           margin: 0 0.5rem;
         }
     }
+   
   }
   
+}
+
+.pagination {
+  font-size: 1rem;
+  margin: -.25rem;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  .pagination-previous {
+    order: 1;
+  }
+  .pagination-next {
+    order: 3;
+  }
+  .pagination-list {
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: center;
+    order: 2;
+
+    align-items: center;
+    display: flex;
+    text-align: center;
+  }
+
+  a {
+    background: var(--background);
+    border: 0;
+    color: var(--dark-c);
+    min-width: 2.25em;
+    font-size: 1em;
+    justify-content: center;
+    margin: .25rem;
+    text-align: center;
+    padding: calc(.375em - 1px) .5em;
+    position: relative;
+    vertical-align: top;
+    align-items: center;
+    border-radius: 4px;
+    line-height: 1.5;
+    height: 2.25em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .05);
+    display: inline-flex;
+    &:hover {
+      color: var(--theme);
+      text-decoration: underline;
+    }
+    &.pagination-link.is-current {
+      background-color: var(--bg-e);
+      border: 0;
+      color: #fff;
+    }
+  }
+  .is-invisible {
+    visibility: hidden !important;
+  }
 }
 
 .is-hidden-all {
