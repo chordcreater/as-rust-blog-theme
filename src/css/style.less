@@ -1,6 +1,17 @@
 @charset "utf-8";
+// 移动设备最大宽度
+@mobile-max-width: 768px;
+// 平板最小宽度
+@table-min-width: 769px;
+// 笔记本电脑最小宽度
+@laptop-min-width: 1024px;
 // 桌面设备最小宽度
 @desktop-min-width: 1216px;
+// 显示器最小宽度
+@display-min-width: 1700px;
+// 宽屏设备最小宽度
+@widescreen-min-width: 2200px;
+
 
 * {
   margin: 0;
@@ -975,10 +986,16 @@ span {
   }
 }
 
-@media (min-width: 1408px) {
+// 媒体查询（@media）允许你根据不同的屏幕尺寸或其他媒体特性来改变页面布局和样式
+// @media (min-width: 1408px) {
+@media (min-width: @table-min-width) {
+    /* 在这个断点及以上的屏幕尺寸上应用这些样式 */
   .section .card {
 
     &-small .main-content {
+      //这是一个非标准的CSS扩展属性，主要用于WebKit内核的浏览器（比如Chrome和Safari）以及基于WebKit的浏览器引擎。
+      // 它用来设置块级元素显示的文本行数。当行数达到指定的值时，额外的文本将会被隐藏，并且通常会有一个省略号（…）来表示文本被截断。
+      // important: 这是一个CSS声明，用于增加某个CSS属性的优先级。当你在CSS中使用了!important，它告诉浏览器这个规则比其他任何相同属性的规则都具有更高的优先级
       -webkit-line-clamp: 3 !important;
       min-height: 4em;
       max-height: 4.8em;
@@ -1030,13 +1047,16 @@ span {
     //   }
     // }
   }
-}
-
-@media (min-width: @desktop-min-width) {
   .card:not(.is-hidden-desktop):not(.is-hidden-all)~.card {
     margin-top: 1.4rem !important;
   }
 }
+
+// @media (min-width: @desktop-min-width) {
+//   .card:not(.is-hidden-desktop):not(.is-hidden-all)~.card {
+//     margin-top: 1.4rem !important;
+//   }
+// }
 
 html {
 

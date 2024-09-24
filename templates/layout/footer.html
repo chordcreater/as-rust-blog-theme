@@ -2,13 +2,13 @@
     <div class="container">
         <ul class="footer-container">
             <li>
-                <a class="logo-title" th:href="${site.url}">
+                <a class="logo-title" href="/">
                     <th:block th:if="${#strings.isEmpty(site.logo)}" th:text="${site.title}" />
                     <th:block th:unless="${#strings.isEmpty(site.logo)}">
                         <img class="logo-img" th:src="${site.logo}" th:alt="${site.title}" height="28">
-                        <img class="logo-img-dark"
+                        <!-- <img class="logo-img-dark"
                             th:src="${#strings.defaultString(theme.config.basic_info.night_logo, site.logo)}"
-                            th:alt="${site.title}" height="28">
+                            th:alt="${site.title}" height="28"> -->
                     </th:block>
                 </a>
             </li>

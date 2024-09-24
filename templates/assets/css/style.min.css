@@ -918,7 +918,8 @@ span {
 .footer-container > li > p:not(:first-child) {
   font-size: 0.9em;
 }
-@media (min-width: 1408px) {
+@media (min-width: 769px) {
+  /* 在这个断点及以上的屏幕尺寸上应用这些样式 */
   .section .card-small .main-content {
     -webkit-line-clamp: 3 !important;
     min-height: 4em;
@@ -951,8 +952,6 @@ span {
     display: -ms-flexbox;
     display: flex;
   }
-}
-@media (min-width: 1216px) {
   .card:not(.is-hidden-desktop):not(.is-hidden-all) ~ .card {
     margin-top: 1.4rem !important;
   }
